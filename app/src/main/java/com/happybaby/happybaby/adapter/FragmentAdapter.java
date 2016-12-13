@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.happybaby.happybaby.fragment.voerseas.BlankFragment;
+import com.happybaby.happybaby.voerseasfragment.BlankFragment;
 
 import java.util.List;
 

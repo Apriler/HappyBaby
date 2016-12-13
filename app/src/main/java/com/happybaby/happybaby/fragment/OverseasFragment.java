@@ -1,4 +1,4 @@
-package com.happybaby.happybaby.fragment.main;
+package com.happybaby.happybaby.fragment;
 
 
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.FragmentAdapter;
 import com.happybaby.happybaby.constant.OverseasConstant;
-import com.happybaby.happybaby.fragment.voerseas.BlankFragment;
+import com.happybaby.happybaby.voerseasfragment.BlankFragment;
 
 import java.util.ArrayList;
 import java.util.List;

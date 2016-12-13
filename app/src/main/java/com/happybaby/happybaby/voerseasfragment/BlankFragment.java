@@ -1,4 +1,4 @@
-package com.happybaby.happybaby.fragment.voerseas;
+package com.happybaby.happybaby.voerseasfragment;
 
 
 import android.os.Bundle;
