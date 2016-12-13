@@ -14,16 +14,17 @@ import java.io.IOException;
 
 public class GridDownLoadTask extends AsyncTask<Void,Void,String> {
 
-    public interface OnGridLoadListener{
-        void downSuccess(String result);
-    }
 
     private String urlStr;
     private OnGridLoadListener onGridLoadListener;
 
-    public GridDownLoadTask(String urlStr, OnGridLoadListener onGridLoadListener) {
-        this.urlStr = urlStr;
+    public void setOnGridLoadListener(OnGridLoadListener onGridLoadListener) {
         this.onGridLoadListener = onGridLoadListener;
+    }
+
+    public GridDownLoadTask(String urlStr) {
+        this.urlStr = urlStr;
+//        this.onGridLoadListener = onGridLoadListener;
     }
 
     @Override
@@ -46,4 +47,10 @@ public class GridDownLoadTask extends AsyncTask<Void,Void,String> {
         }
 
     }
+
+
+    public interface OnGridLoadListener{
+        void downSuccess(String result);
+    }
+
 }

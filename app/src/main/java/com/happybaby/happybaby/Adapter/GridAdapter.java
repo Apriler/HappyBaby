@@ -1,8 +1,10 @@
 package com.happybaby.happybaby.Adapter;
 
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -12,12 +14,16 @@ import java.util.List;
 
 public class GridAdapter extends PagerAdapter {
 
-    private List<View> listViews;
+    private List<ImageView> listViews;
 
-    public GridAdapter(List<View> listViews) {
+    public GridAdapter(List<ImageView> listViews) {
         this.listViews = listViews;
     }
 
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView(listViews.get(position));
+    }
     @Override
     public int getCount() {
         return listViews.size();
@@ -37,8 +43,6 @@ public class GridAdapter extends PagerAdapter {
     }
 
     //销毁视图
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        super.destroyItem(container, position, object);
-    }
+
+
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.GridBean;
+import com.happybaby.happybaby.fragment.GridFragment;
 import com.happybaby.happybaby.fragment.IndexFragment;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_events, TAB_EVENTS),
                 IndexFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_events_new_takephoto, TAB_EVENTS_TAKEPHOTO),
-                IndexFragment.class, null);
+                GridFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_shopping_car,  TAB_SHOPPING_CAR),
                 IndexFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_person, TAB_PERSON),
