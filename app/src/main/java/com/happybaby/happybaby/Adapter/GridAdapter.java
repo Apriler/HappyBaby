@@ -28,6 +28,7 @@ public class GridAdapter extends PagerAdapter {
         return view==object;
     }
 
+    //创建视图
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view=listViews.get(position);
@@ -35,6 +36,7 @@ public class GridAdapter extends PagerAdapter {
         return view;
     }
 
+    //销毁视图
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         super.destroyItem(container, position, object);

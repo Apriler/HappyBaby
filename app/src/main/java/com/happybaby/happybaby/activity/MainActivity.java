@@ -10,20 +10,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.happybaby.happybaby.R;
+import com.happybaby.happybaby.bean.GridBean;
 import com.happybaby.happybaby.fragment.IndexFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost mFragmentTabHost;
     private FragmentManager mFragmentManager;
     private TabWidget mTabWidget;
-    private TabLayout gridTab;
-    private ViewPager gridVp;
+
 
     public static final String TAB_INDEX = "tab_index";
     public static final String TAB_EVENTS = "tab_events";
