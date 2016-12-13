@@ -1,8 +1,10 @@
 package com.happybaby.happybaby.activity;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTabHost mFragmentTabHost;
     private FragmentManager mFragmentManager;
     private TabWidget mTabWidget;
+    private TabLayout gridTab;
+    private ViewPager gridVp;
 
     public static final String TAB_INDEX = "tab_index";
     public static final String TAB_EVENTS = "tab_events";
