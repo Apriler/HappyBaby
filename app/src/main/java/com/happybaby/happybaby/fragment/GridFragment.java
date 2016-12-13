@@ -2,7 +2,6 @@ package com.happybaby.happybaby.fragment;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 import com.google.gson.Gson;
-import com.happybaby.happybaby.Adapter.GridAdapter;
+import com.happybaby.happybaby.adapter.GridAdapter;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.GridBean;
 import com.happybaby.happybaby.contant.GridUrlContants;
