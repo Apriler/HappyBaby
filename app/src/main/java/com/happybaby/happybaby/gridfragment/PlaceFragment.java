@@ -24,7 +24,6 @@ import java.util.List;
 
 public class PlaceFragment extends Fragment {
     private List<ImageView> views; //轮播图集合
-    private TableLayout gridTab;   //格子圈tab
     private ViewPager gridVp;   //格子圈轮播图
     private List<GridBean.DataBeanX> gridList; //轮播图数据源
     private LinearLayout addotLayout;  //轮播图圆点
@@ -48,7 +47,6 @@ public class PlaceFragment extends Fragment {
 
     //实例化视图
     private void initView(View rootView) {
-        gridTab= (TableLayout) rootView.findViewById(R.id.grid_tab);
         gridVp= (ViewPager) rootView.findViewById(R.id.grid_vp);
         views=new ArrayList<>();
         //打开异步下载
@@ -72,6 +70,31 @@ public class PlaceFragment extends Fragment {
             }
         });
         task.execute();
+        //实例化圆点，并与轮播图片绑定
+        addotLayout= (LinearLayout) rootView.findViewById(R.id.addot_layout);
+        gridVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                //改变圆点状态
+                for (int i=0;i<addotLayout.getChildCount();i++){
+                    ImageView iv= (ImageView) addotLayout.getChildAt(i); //获得圆点的view
+                    if (i==position){ //当前圆点被选中
+                        iv.setImageResource(R.mipmap.icon_single_event_indicator_check);
+                    }else {
+                        iv.setImageResource(R.mipmap.icon_single_event_indicator_normal);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
 
     }
 

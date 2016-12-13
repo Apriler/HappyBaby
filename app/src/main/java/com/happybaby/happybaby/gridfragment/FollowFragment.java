@@ -1,4 +1,4 @@
-package com.happybaby.happybaby.fragment;
+package com.happybaby.happybaby.gridfragment;
 
 
 import android.os.Bundle;
@@ -6,24 +6,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 
 import com.happybaby.happybaby.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FollowFragment extends Fragment {
 
 
-public class GridFragment extends Fragment {
+    public FollowFragment() {
+        // Required empty public constructor
+    }
 
-    private TableLayout gridTab;   //格子圈tab
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootView=inflater.inflate(R.layout.fragment_grid, container, false);
-
-        return rootView;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_follow, container, false);
     }
-
 
 }
