@@ -19,6 +19,7 @@ public class GridAdapter extends PagerAdapter {
         this.listViews = listViews;
     }
 
+    //销毁视图
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(listViews.get(position));
@@ -40,8 +41,5 @@ public class GridAdapter extends PagerAdapter {
         container.addView(view);
         return view;
     }
-
-    //销毁视图
-
 
 }
