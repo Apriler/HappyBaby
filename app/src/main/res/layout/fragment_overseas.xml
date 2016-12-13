@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.happybaby.happybaby.fragment.main.OverseasFragment">
+    tools:context="com.happybaby.happybaby.fragment.OverseasFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_overseas"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        app:tabTextColor="@color/bottomLine"
+        app:tabTextColor="@color/colorGray"
         app:tabSelectedTextColor="@color/colorBlack"
-
         app:tabIndicatorColor="@color/colorBlack"
         app:tabBackground="@color/colorTabBg"
         app:tabGravity="fill"

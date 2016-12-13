@@ -1,26 +1,19 @@
 package com.happybaby.happybaby.activity;
 
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
-import android.widget.TextView;
 
 import com.happybaby.happybaby.R;
-import com.happybaby.happybaby.bean.GridBean;
 import com.happybaby.happybaby.fragment.GridFragment;
 import com.happybaby.happybaby.fragment.IndexFragment;
-
-import java.util.List;
+import com.happybaby.happybaby.fragment.OverseasFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_index,  TAB_INDEX),
                 IndexFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_events, TAB_EVENTS),
-                IndexFragment.class, null);
+                OverseasFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_events_new_takephoto, TAB_EVENTS_TAKEPHOTO),
                 GridFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_shopping_car,  TAB_SHOPPING_CAR),
