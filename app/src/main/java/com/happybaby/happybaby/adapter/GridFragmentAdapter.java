@@ -12,10 +12,12 @@ import java.util.List;
 
 public class GridFragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
+    private List<String> stringList;
 
-    public GridFragmentAdapter(FragmentManager fm,List<Fragment> fragments) {
+    public GridFragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> stringList) {
         super(fm);
-        this.fragments=fragments;
+        this.fragments = fragments;
+        this.stringList = stringList;
     }
 
     @Override
@@ -28,8 +30,9 @@ public class GridFragmentAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
+
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        return stringList.get(position);
     }
 }

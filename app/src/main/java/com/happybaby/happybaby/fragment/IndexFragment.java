@@ -3,6 +3,7 @@ package com.happybaby.happybaby.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -59,7 +60,9 @@ public class IndexFragment extends Fragment {
         okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE, new Callback() {//开启异步GET请求
             @Override
             public void onFailure(Call call, IOException e) {       //失败
+                Looper.prepare();
                 Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
 
             @Override
