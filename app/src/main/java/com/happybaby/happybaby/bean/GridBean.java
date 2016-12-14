@@ -188,6 +188,7 @@ public class GridBean {
                 private String product_id;
                 private String event_id;
                 private String tag_name;
+                private String tag_image;
                 private String object_type;
                 private String show_id;
                 private Object h5_link_ios;
@@ -204,6 +205,14 @@ public class GridBean {
                 private String brand_id;
                 private String brand_name;
 
+
+                public String getTag_image() {
+                    return tag_image;
+                }
+
+                public void setTag_image(String tag_image) {
+                    this.tag_image = tag_image;
+                }
                 public String getAd_id() {
                     return ad_id;
                 }

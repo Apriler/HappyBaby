@@ -1,5 +1,6 @@
 package com.happybaby.happybaby.adapter;
 
+import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class GridAdapter extends PagerAdapter {
 
+    //数据源
     private List<ImageView> listViews;
 
     public GridAdapter(List<ImageView> listViews) {
@@ -22,10 +24,12 @@ public class GridAdapter extends PagerAdapter {
     //销毁视图
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        View itemView=listViews.get(position);
         container.removeView(listViews.get(position));
     }
     @Override
     public int getCount() {
+        //设置数数据源无限大
         return listViews.size();
     }
 

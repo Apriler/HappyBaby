@@ -21,12 +21,12 @@ import java.util.List;
 public class GridFragment extends Fragment {
 
     private TabLayout gridTab;   //格子圈tab
-    private FollowFragment followFragment;
-    private PlaceFragment placeFragment;
-    private GridFragmentAdapter gridFragmentAdapter;
-    private List<Fragment> fraglist;
-    private List<String> Strlist;
-    private ViewPager fragVp;
+    private FollowFragment followFragment;  //关注画面Fragment
+    private PlaceFragment placeFragment;  //广场画面Fragment
+    private GridFragmentAdapter gridFragmentAdapter; //tabLayout的adapter
+    private List<Fragment> fraglist;        //fragment集合
+    private List<String> Strlist;       //tab文言的集合
+    private ViewPager fragVp;           //与tab关联的ViewPager
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class GridFragment extends Fragment {
     }
 
     private void initView(View rootView) {
-        gridTab= (TabLayout) rootView.findViewById(R.id.grid_tab);
-        followFragment=new FollowFragment();
-        placeFragment=new PlaceFragment();
+        gridTab= (TabLayout) rootView.findViewById(R.id.grid_tab);  //实例化格子圈tablayout
+        followFragment=new FollowFragment();        //实例化关注画面Fragment
+        placeFragment=new PlaceFragment();          //实例化广场画面Fragment
         fraglist= new ArrayList<>();
         Strlist= new ArrayList<>();
         fragVp= (ViewPager) rootView.findViewById(R.id.frag_vp);
-        fraglist.add(followFragment);
         fraglist.add(placeFragment);
+        fraglist.add(followFragment);
         Strlist.add("广场");
         Strlist.add("关注");
         gridFragmentAdapter=new GridFragmentAdapter(getChildFragmentManager(),fraglist,Strlist);
