@@ -58,6 +58,7 @@
         app:tabTextColor="#77000000"
         app:tabSelectedTextColor="@color/colorBlack"
         app:tabIndicatorColor="@color/colorBlack"
+
         app:tabMode="scrollable"/>
 
     <!-- tablayout -->
