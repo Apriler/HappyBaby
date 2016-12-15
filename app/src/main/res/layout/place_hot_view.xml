@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/layout_view"
+        android:id="@+id/layout_hot_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="5dp" >

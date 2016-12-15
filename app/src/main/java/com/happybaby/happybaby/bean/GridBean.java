@@ -176,6 +176,8 @@ public class GridBean {
                  * brand_name :
                  */
 
+                private String big_avatar;
+                private String nick_name;
                 private String ad_id;
                 private String ad_name;
                 private Object ad_link;
@@ -204,7 +206,52 @@ public class GridBean {
                 private String category_name;
                 private String brand_id;
                 private String brand_name;
+                private String topic_name;
+                private String topic_join;
 
+                public String getTopic_name() {
+                    return topic_name;
+                }
+
+                public void setTopic_name(String topic_name) {
+                    this.topic_name = topic_name;
+                }
+
+                public String getTopic_join() {
+                    return topic_join;
+                }
+
+                public void setTopic_join(String topic_join) {
+                    this.topic_join = topic_join;
+                }
+
+                public String getTopic_image() {
+                    return topic_image;
+                }
+
+                public void setTopic_image(String topic_image) {
+                    this.topic_image = topic_image;
+                }
+
+                private String topic_image;
+
+
+
+                public String getNick_name() {
+                    return nick_name;
+                }
+
+                public void setNick_name(String nick_name) {
+                    this.nick_name = nick_name;
+                }
+
+                public String getBig_avatar() {
+                    return big_avatar;
+                }
+
+                public void setBig_avatar(String big_avatar) {
+                    this.big_avatar = big_avatar;
+                }
 
                 public String getTag_image() {
                     return tag_image;

@@ -1,9 +1,19 @@
 package com.happybaby.happybaby.gridfragment;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +33,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class PlaceFragment extends Fragment {
     private List<ImageView> views; //轮播图集合
@@ -32,9 +44,15 @@ public class PlaceFragment extends Fragment {
 
     private List<GridBean.DataBeanX.DataBean.ListBean> themeList;  //热门图片网址
     private LayoutInflater mInflater;  //布局解析
-
     private ViewPager mGridVp;    //热门图片ViewPager
     private LinearLayout mIdGallery;  //热门的图片和文言布局
+    private List<GridBean.DataBeanX.DataBean.ListBean> totalList;//全球达人模块
+    private LinearLayout mNickGallery;  //全球达人的图片和文言布局
+
+    private List<GridBean.DataBeanX.DataBean.ListBean> topicList;//热门话题模块
+    private RecyclerView topicRv;  //热门话题RecyclerView
+    private LinearLayout mTopicGallery;
+
 
 
     @Override
@@ -52,13 +70,15 @@ public class PlaceFragment extends Fragment {
         themeList = new ArrayList<>();
 
     }
+    //创建一个线程池
+    private Executor downloadExecutor;
 
     //初始化视图
-    private void initView(final View rootView) {
+    private void initView(View rootView) {
         gridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         views = new ArrayList<>();  //实例化轮播图集合
-
         //打开异步下载
+        downloadExecutor = Executors.newFixedThreadPool(10);
         GridDownLoadTask task = new GridDownLoadTask(GridUrlContants.GRID_BASE);
         task.setOnGridLoadListener(new GridDownLoadTask.OnGridLoadListener() {
             @Override
@@ -93,7 +113,39 @@ public class PlaceFragment extends Fragment {
                     mIdGallery.addView(itemForScrollView);
                 }
                 //全球达人模块
+                totalList = gridBean.getData().get(2).getData().getList();
+                for (int i = 0; i < themeList.size(); i++) {
+                    //获取滑动布局的viewgroup
+                    View itemForScrollView = mInflater.inflate(R.layout.place_total_view, mNickGallery, false);
+                    //滑动布局的两个组件
+                    ImageView mIvItem = (ImageView) itemForScrollView.findViewById(R.id.big_avatar_iv);
 
+                    TextView mTvItem = (TextView) itemForScrollView.findViewById(R.id.nick_name_tv);
+                    //循环添加数据
+                    Picasso.with(getContext()).load(totalList.get(i).getBig_avatar()).into(mIvItem);
+                    mTvItem.setText(totalList.get(i).getNick_name());
+                    mNickGallery.addView(itemForScrollView);
+
+                }
+//
+//                //热门话题模块
+//                topicList= gridBean.getData().get(3).getData().getList();
+//                for (int i = 0; i < themeList.size(); i++) {
+//                    //获取滑动布局的viewgroup
+//                    View itemForScrollView = mInflater.inflate(R.layout.place_topic_view, mTopicGallery, false);
+//                    //滑动布局的两个组件
+//                    ImageView mIvItem = (ImageView) itemForScrollView.findViewById(R.id.topic_iv);
+//
+//                    TextView mTvItem = (TextView) itemForScrollView.findViewById(R.id.topic_tv);
+////                    TextView mTvItem2 = (TextView) itemForScrollView.findViewById(R.id.topic_tv2);
+//                    //循环添加数据
+//                    Picasso.with(getContext()).load(topicList.get(i).getTopic_image()).into(mIvItem);
+//                    mTvItem.setText(topicList.get(i).getTopic_name());
+////                    mTvItem2.setText(topicList.get(i).getTopic_join());
+//
+//                    mTopicGallery.addView(itemForScrollView);
+//
+//                }
 
             }
         });
@@ -124,8 +176,38 @@ public class PlaceFragment extends Fragment {
         });
 
         mGridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
-
         mIdGallery = (LinearLayout) rootView.findViewById(R.id.id_gallery);
+        mNickGallery= (LinearLayout) rootView.findViewById(R.id.nick_gallery);
+        mTopicGallery= (LinearLayout) rootView.findViewById(R.id.topic_gallery);
+    }
+
+
+
+
+
+
+    /**
+     * 画圆角图片
+     * @param bitmap
+     * @param pixels
+     * @return
+     */
+    private Bitmap getRoundCornerBitmap(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
     }
 
 }
