@@ -14,6 +14,8 @@ import java.util.List;
 
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+
+
     //===========================================
     //====================点击监听接口========================
     //==========================================
@@ -45,11 +47,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected int itemLayoutId; //item子项布局id
     protected int[] itemViewIds; //item布局中子View的id集合
 
-    public BaseRecyclerViewAdapter(Context context, List<T> datas, int itemLayoutId, int[] itemViewIds) {
+    public BaseRecyclerViewAdapter(Context context, List<T> datas, int place_card_view, int itemLayoutId) {
         this.context = context;
         this.datas = datas;
         this.itemLayoutId = itemLayoutId;
-        this.itemViewIds = itemViewIds;
         inflater = LayoutInflater.from(context);
     }
 
