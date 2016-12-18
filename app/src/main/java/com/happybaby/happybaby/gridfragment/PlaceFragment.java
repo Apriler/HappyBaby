@@ -11,14 +11,18 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,7 +55,9 @@ public class PlaceFragment extends Fragment {
 
     private List<GridBean.DataBeanX.DataBean.ListBean> topicList;//热门话题模块
     private RecyclerView topicRv;  //热门话题RecyclerView
-    private LinearLayout mTopicGallery;
+    private LinearLayoutManager layoutManager; //布局管理者
+    private GridLayout mTopicGallery;
+    private DataAdapter dataAdapter;
 
 
 
@@ -75,6 +81,11 @@ public class PlaceFragment extends Fragment {
 
     //初始化视图
     private void initView(View rootView) {
+        mGridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
+        mIdGallery = (LinearLayout) rootView.findViewById(R.id.id_gallery);
+        mNickGallery= (LinearLayout) rootView.findViewById(R.id.nick_gallery);
+//        mTopicGallery= (GridLayout) rootView.findViewById(R.id.topic_gallery);
+        topicRv= (RecyclerView) rootView.findViewById(R.id.topic_recycler);
         gridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         views = new ArrayList<>();  //实例化轮播图集合
         //打开异步下载
@@ -127,25 +138,14 @@ public class PlaceFragment extends Fragment {
                     mNickGallery.addView(itemForScrollView);
 
                 }
-//
-//                //热门话题模块
-//                topicList= gridBean.getData().get(3).getData().getList();
-//                for (int i = 0; i < themeList.size(); i++) {
-//                    //获取滑动布局的viewgroup
-//                    View itemForScrollView = mInflater.inflate(R.layout.place_topic_view, mTopicGallery, false);
-//                    //滑动布局的两个组件
-//                    ImageView mIvItem = (ImageView) itemForScrollView.findViewById(R.id.topic_iv);
-//
-//                    TextView mTvItem = (TextView) itemForScrollView.findViewById(R.id.topic_tv);
-////                    TextView mTvItem2 = (TextView) itemForScrollView.findViewById(R.id.topic_tv2);
-//                    //循环添加数据
-//                    Picasso.with(getContext()).load(topicList.get(i).getTopic_image()).into(mIvItem);
-//                    mTvItem.setText(topicList.get(i).getTopic_name());
-////                    mTvItem2.setText(topicList.get(i).getTopic_join());
-//
-//                    mTopicGallery.addView(itemForScrollView);
-//
-//                }
+                WindowManager wm1 = getActivity().getWindowManager();
+
+                //热门话题模块
+                topicList= gridBean.getData().get(3).getData().getList();
+                dataAdapter=new DataAdapter(getContext(),topicList);
+    
+                topicRv.setAdapter(dataAdapter);
+                topicRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
 
             }
         });
@@ -175,10 +175,7 @@ public class PlaceFragment extends Fragment {
             }
         });
 
-        mGridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
-        mIdGallery = (LinearLayout) rootView.findViewById(R.id.id_gallery);
-        mNickGallery= (LinearLayout) rootView.findViewById(R.id.nick_gallery);
-        mTopicGallery= (LinearLayout) rootView.findViewById(R.id.topic_gallery);
+
     }
 
 
