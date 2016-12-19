@@ -11,4 +11,5 @@
     <color name="colorGray">#77000000</color>
     <color name="colorLinkWhite">#bbffffff</color>
     <color name="colorLinkGray">#22000000</color>
+    <color name="colorTranGray">#50FFFFFF</color>
 </resources>

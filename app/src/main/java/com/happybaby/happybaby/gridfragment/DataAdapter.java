@@ -72,7 +72,6 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         GridBean.DataBeanX.DataBean.ListBean data = datas.get(position);
         //绑定数据
         Picasso.with(context).load(data.getTopic_image()).into(viewHolder.itemIv);
-//        viewHolder.itemIv.setImageResource(Integer.parseInt(data.getTopic_image()));
         viewHolder.itemTv.setText(data.getTopic_name());
         viewHolder.itemTv2.setText(data.getTopic_join());
 
@@ -113,20 +112,20 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             itemTv2 = (TextView) convertView.findViewById(R.id.topic_tv2);
 
             //itemView ViewHolder所对应的子View
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemClickListener.itemClick(itemView, getLayoutPosition());
-                }
-            });
-
-                    itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    itemLongClickListener.itemLongCilck(itemView, getLayoutPosition());
-                    return true;
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    itemClickListener.itemClick(itemView, getLayoutPosition());
+//                }
+//            });
+//
+//                    itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    itemLongClickListener.itemLongCilck(itemView, getLayoutPosition());
+//                    return true;
+//                }
+//            });
 
         }
     }
@@ -146,29 +145,5 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         notifyItemInserted(position);
     }
 
-    //添加多条数据
-    public void addItems(List<GridBean.DataBeanX.DataBean.ListBean> _datas, int positionStart) {
-        datas.addAll(_datas);
-        notifyItemRangeInserted(positionStart,_datas.size());
-    }
-
-    //移除指定位置数据
-    public void removeItem(int position) {
-        datas.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    //移除多条数据
-    public void removeItems(List<GridBean.DataBeanX.DataBean.ListBean> _datas, int positionStart) {
-        datas.removeAll(_datas);
-        notifyItemRangeRemoved(positionStart , _datas.size());
-    }
-
-    //更新一条数据
-    public void changeItem(GridBean.DataBeanX.DataBean.ListBean data, int position) {
-        datas.remove(position);
-        datas.add(position,data);
-        notifyItemChanged(position);
-    }
 
 }
