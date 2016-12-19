@@ -39,7 +39,7 @@ public class GridFragment extends Fragment {
     private void initView(View rootView) {
         gridTab= (TabLayout) rootView.findViewById(R.id.grid_tab);  //实例化格子圈tablayout
         followFragment=new FollowFragment();        //实例化关注画面Fragment
-        placeFragment=new PlaceFragment();          //实例化广场画面Fragment
+        placeFragment=new PlaceFragment();          //实例化广场  画面Fragment
         fraglist= new ArrayList<>();
         Strlist= new ArrayList<>();
         fragVp= (ViewPager) rootView.findViewById(R.id.frag_vp);

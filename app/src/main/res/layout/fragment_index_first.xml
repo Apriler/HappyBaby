@@ -1,13 +1,211 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.happybaby.happybaby.index_fragment.Index_firstFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <!-- 轮播图 -->
+                <com.happybaby.happybaby.util.ChildViewPager
+                    android:id="@+id/vp_ads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- 小圆点-->
+                <com.happybaby.happybaby.viewpagerwidget.FlowIndicator
+                    android:id="@+id/flowindicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    app:point_normal_color="@color/colorGray"
+                    app:point_radius="3dp"
+                    app:point_seleted_color="@color/colorTabBg" />
+
+
+            </RelativeLayout>
+            <!--                hot通知                      -->
+            <LinearLayout
+                android:id="@+id/ll_1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <!--hot图标-->
+                <ImageView
+                    android:id="@+id/iv_hot"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    android:background="@color/colorLinkGray" />
+                <!--轮播公告-->
+                <com.paradoxie.autoscrolltextview.VerticalTextview
+                    android:id="@+id/tv_autoscrolltextview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLinkGray" />
+            <!--   功能入口模块   -->
+            <LinearLayout
+                android:id="@+id/ll_item_btn"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+
+                    android:id="@+id/iv_item1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/iv_item2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+
+                    android:id="@+id/iv_item3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+
+                    android:id="@+id/iv_item4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+
+                    android:id="@+id/iv_item5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <!--   秒杀专场   -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@color/colorLinkGray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@mipmap/icon_add_biaoqian_white"
+                android:gravity="center_vertical"
+                android:text="秒杀专场 "
+                android:textSize="19sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorLinkGray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_miaosha1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_miaosha2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <include layout="@layout/item_index_black_text"
+                        android:id="@+id/include1"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"/>
+                    <include layout="@layout/item_index_black_text"
+                        android:id="@+id/include2"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--轮播公告-->
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@color/colorLinkGray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@mipmap/icon_add_biaoqian_white"
+                android:gravity="center_vertical"
+                android:text="专场列表 "
+                android:textSize="19sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorLinkGray" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

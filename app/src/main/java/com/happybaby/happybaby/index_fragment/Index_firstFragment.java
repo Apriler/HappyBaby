@@ -1,30 +1,354 @@
 package com.happybaby.happybaby.index_fragment;
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.happybaby.happybaby.R;
+import com.happybaby.happybaby.activity.WebviewActivity;
+import com.happybaby.happybaby.adapter.ADtextAdapter;
+import com.happybaby.happybaby.contant.IndexUrlContants;
+import com.happybaby.happybaby.util.OkHttpUtils;
+import com.happybaby.happybaby.viewpagerwidget.FlowIndicator;
+import com.paradoxie.autoscrolltextview.VerticalTextview;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 首页 推荐页面
  */
 public class Index_firstFragment extends Fragment {
 
 
-    public Index_firstFragment() {
-        // Required empty public constructor
-    }
+    private FlowIndicator mFlowindicator;//小圆点实例
+    private ViewPager mVpAds;//轮播图
+    private List<View> mIvList;//轮播图的集合
+    private RecyclerView mRecyclerview;
+    private ImageView mIvHot;
+    private VerticalTextview mTvAutoscrolltextview;
+    private ImageView mIvItem1;//功能入口模块
+    private ImageView mIvItem2;//功能入口模块
+    private ImageView mIvItem3;//功能入口模块
+    private ImageView mIvItem4;//功能入口模块
+    private ImageView mIvItem5;//功能入口模块
+    private GridLayout mGridLayout;
+    private RelativeLayout mRlMiaosha1;
+    private LinearLayout mLlMiaosha2;
+    private View item2;
+    private View item3;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index_first, container, false);
+        // 解析布局
+        View view = inflater.inflate(R.layout.fragment_index_first, container, false);
+        initView(view);
+        //重写轮播图，分开解析数据
+        initHttp();
+
+        return view;
     }
 
+    //加载数据
+    private void initHttp() {
+        OkHttpUtils okHttpUtils = OkHttpUtils.newInstance();//获取OkHttpUtils的单例
+        okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE_RECOMMEND, new Callback() {//开启异步GET请求
+            @Override
+            public void onFailure(Call call, IOException e) {       //失败
+                Looper.prepare();
+                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {//成功
+                String string = response.body().string();//返回json
+                if (!TextUtils.isEmpty(string)) {
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
+
+                        //解析data0轮播图
+                        initData0(dataArray);
+                        //解析hot的轮播公告
+                        initData1(dataArray);
+                        //解析data2功能入口模块
+                        initData2(dataArray);
+                        //解析data4秒杀专场
+                        initData4(dataArray);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        });
+
+    }
+
+    private void initData4(JSONArray dataArray) throws Exception {
+        final JSONObject data4 = dataArray.getJSONObject(4);//取到data3
+        final JSONObject indata4 = data4.getJSONObject("data");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final JSONArray list4 = indata4.getJSONArray("list");
+                        View item1 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
+
+                        //图片
+                        String ad_pic = list4.getJSONObject(2).getString("ad_pic");
+                        ImageView iv_back1= (ImageView) item1.findViewById(R.id.iv_back);
+                        iv_back1.setScaleType(ImageView.ScaleType.FIT_XY);
+                        Picasso.with(getContext()).load(ad_pic).into(iv_back1);
+                        //标题
+                        String ad_word = list4.getJSONObject(2).getString("ad_word");
+                        TextView tv_bigtitle= (TextView) item1.findViewById(R.id.tv_bigtitle);
+                        tv_bigtitle.setText(ad_word);
+                        //标题
+                        String ad_introduction = list4.getJSONObject(2).getString("ad_introduction");
+                        TextView tv_smalltitle= (TextView) item1.findViewById(R.id.tv_smalltitle);
+                        tv_smalltitle.setText(ad_introduction);
+                        mRlMiaosha1.addView(item1);
+
+//                    View item2 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
+
+                        //图片
+                        String ad_pic2 = list4.getJSONObject(1).getString("ad_pic");
+                        ImageView iv_back2= (ImageView) item2.findViewById(R.id.iv_back);
+
+                        Picasso.with(getContext()).load(ad_pic2).into(iv_back2);
+                        //标题
+                        String ad_word2 = list4.getJSONObject(1).getString("ad_word");
+                        TextView tv_bigtitle2= (TextView) item2.findViewById(R.id.tv_bigtitle);
+                        tv_bigtitle2.setText(ad_word2);
+//                        mLlMiaosha2.addView(item2);
+
+//                    View item3 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
+                        //图片
+                        String ad_pic3 = list4.getJSONObject(3).getString("ad_pic");
+                        ImageView iv_back3= (ImageView) item3.findViewById(R.id.iv_back);
+
+                        Picasso.with(getContext()).load(ad_pic3).into(iv_back3);
+                        //标题
+                        String ad_word3 = list4.getJSONObject(3).getString("ad_word");
+                        TextView tv_bigtitle3= (TextView) item3.findViewById(R.id.tv_bigtitle);
+                        tv_bigtitle3.setText(ad_word3);
+                        //标题
+                        String ad_introduction3 = list4.getJSONObject(3).getString("ad_introduction");
+                        TextView tv_smalltitle3= (TextView) item3.findViewById(R.id.tv_smalltitle);
+                        tv_smalltitle3.setText(ad_introduction3);
+//                        mLlMiaosha2.addView(item3);
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+    }
+
+    //解析data2功能入口模块
+    private void initData2(JSONArray dataArray) throws Exception {
+        final JSONObject data2 = dataArray.getJSONObject(2);//取到data2
+        final JSONObject indata2 = data2.getJSONObject("data");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final JSONArray list2 = indata2.getJSONArray("list");
+                    //加载图片到每个Imageview上去
+                    String pic1 = list2.getJSONObject(0).getString("pic");
+                    Picasso.with(getContext()).load(pic1).into(mIvItem1);
+                    String pic2 = list2.getJSONObject(1).getString("pic");
+                    Picasso.with(getContext()).load(pic2).into(mIvItem2);
+                    String pic3 = list2.getJSONObject(2).getString("pic");
+                    Picasso.with(getContext()).load(pic3).into(mIvItem3);
+                    String pic4 = list2.getJSONObject(3).getString("pic");
+                    Picasso.with(getContext()).load(pic4).into(mIvItem4);
+                    String pic5 = list2.getJSONObject(4).getString("pic");
+                    Picasso.with(getContext()).load(pic5).into(mIvItem5);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //解析hot的轮播公告
+    private void initData1(JSONArray dataArray) throws Exception {
+        final JSONObject data1 = dataArray.getJSONObject(1);
+        final JSONObject indata1 = data1.getJSONObject("data");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                String module_icon = null;
+                try {
+                    module_icon = data1.getString("module_icon");
+                    Log.e("data", "module_icon+++++++++++++" + module_icon);
+                    Picasso.with(getContext()).load(module_icon).into(mIvHot);//hot图标
+                    final JSONArray list1 = indata1.getJSONArray("list");
+                    ArrayList<String> titleList = new ArrayList<>();
+                    for (int i = 0; i < list1.length(); i++) {
+                        String ad_introduction = list1.getJSONObject(i).getString("ad_introduction");
+                        titleList.add(ad_introduction);
+                    }
+
+                    mTvAutoscrolltextview.setTextList(titleList);//加入显示内容,集合类型
+                    mTvAutoscrolltextview.setText(13, 5, Color.BLACK);//设置属性,具体跟踪源码
+                    mTvAutoscrolltextview.setTextStillTime(3000);//设置停留时长间隔
+                    mTvAutoscrolltextview.setAnimTime(300);//设置进入和退出的时间间隔
+                    mTvAutoscrolltextview.startAutoScroll();
+                    //对单条文字的点击监听
+                    mTvAutoscrolltextview.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            try {
+                                String h5_link_android = list1.getJSONObject(position).getString("h5_link_android");
+                                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                                intent.putExtra("URL", h5_link_android);
+                                startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+    }
+
+    //解析data0轮播图
+    private void initData0(JSONArray dataArray) throws Exception {
+        JSONObject data0 = dataArray.getJSONObject(0);
+        JSONObject indata = data0.getJSONObject("data");
+        final JSONArray list = indata.getJSONArray("list");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.length(); i++) {
+                    String ad_pic = null;
+                    try {
+                        //设置小圆点的个数和初始位置
+                        mFlowindicator.setSeletion(0);
+                        mFlowindicator.setCount(list.length());
+                        ad_pic = list.getJSONObject(i).getString("ad_pic");
+
+                        if (!TextUtils.isEmpty(ad_pic)) {
+                            //加载轮播图
+                            View textView = LayoutInflater.from(getContext()).inflate(R.layout.item_index_text, null, false);
+                            ImageView iv_back = (ImageView) textView.findViewById(R.id.iv_back);//背景
+                            Picasso.with(getContext()).load(ad_pic).into(iv_back);
+
+                            TextView tv_bigtitle = (TextView) textView.findViewById(R.id.tv_bigtitle);//大标题
+                            TextView tv_smalltitle = (TextView) textView.findViewById(R.id.tv_smalltitle);//小标题
+
+                            //解析轮播图内文字
+                            tv_bigtitle.setText(list.getJSONObject(i).getString("ad_name"));
+                            tv_smalltitle.setText(list.getJSONObject(i).getString("ad_introduction"));
+
+                            mIvList.add(textView);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                //放入适配器
+                ADtextAdapter adapter = new ADtextAdapter(mIvList);
+                adapter.notifyDataSetChanged();
+                mVpAds.setAdapter(adapter);
+                mVpAds.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        mFlowindicator.setSeletion(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                    }
+                });
+            }
+
+        });
+
+    }
+
+    private void initView(View view) {
+        mFlowindicator = (FlowIndicator) view.findViewById(R.id.flowindicator);
+        mVpAds = (ViewPager) view.findViewById(R.id.vp_ads);
+        mIvList = new ArrayList<>();
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
+        //设置小圆点的初始个数和初始位置
+        mFlowindicator.setSeletion(0);
+        mFlowindicator.setCount(3);
+        mIvHot = (ImageView) view.findViewById(R.id.iv_hot);
+        mTvAutoscrolltextview = (VerticalTextview) view.findViewById(R.id.tv_autoscrolltextview);
+        //实例签到，热销，Apple特惠，上新，摇奖按钮
+        mIvItem1 = (ImageView) view.findViewById(R.id.iv_item1);
+//        mIvItem1.setOnClickListener(this);
+        mIvItem2 = (ImageView) view.findViewById(R.id.iv_item2);
+//        mIvItem2.setOnClickListener(this);
+        mIvItem3 = (ImageView) view.findViewById(R.id.iv_item3);
+//        mIvItem3.setOnClickListener(this);
+        mIvItem4 = (ImageView) view.findViewById(R.id.iv_item4);
+//        mIvItem4.setOnClickListener(this);
+        mIvItem5 = (ImageView) view.findViewById(R.id.iv_item5);
+//        mIvItem5.setOnClickListener(this);
+
+        mRlMiaosha1 = (RelativeLayout) view.findViewById(R.id.rl_miaosha1);
+
+        mLlMiaosha2 = (LinearLayout) view.findViewById(R.id.ll_miaosha2);
+        item2 = view.findViewById(R.id.include1);
+        item3 = view.findViewById(R.id.include2);
+    }
+
+
 }
+

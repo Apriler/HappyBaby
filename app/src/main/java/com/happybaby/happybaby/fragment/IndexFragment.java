@@ -54,10 +54,10 @@ public class IndexFragment extends Fragment {
         initHttp();
         return view;
     }
-
+    //加载数据
     private void initHttp() {
         OkHttpUtils okHttpUtils = OkHttpUtils.newInstance();//获取OkHttpUtils的单例
-        okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE, new Callback() {//开启异步GET请求
+        okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE_TITLE, new Callback() {//开启异步GET请求
             @Override
             public void onFailure(Call call, IOException e) {       //失败
                 Looper.prepare();
@@ -104,4 +104,5 @@ public class IndexFragment extends Fragment {
         fraglist = new ArrayList<>();
         mTablayout.setupWithViewPager(mVpFrag);
     }
+
 }
