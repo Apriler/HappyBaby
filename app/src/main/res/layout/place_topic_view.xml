@@ -13,13 +13,22 @@
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:background="@color/colorTranGray"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
     <TextView
         android:id="@+id/topic_tv"
         android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:textSize="16sp"
         android:textColor="@color/colorBlack"
         android:layout_centerInParent="true"/>
@@ -33,5 +42,6 @@
         android:textSize="14sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/topic_tv"/>
+    </LinearLayout>
 
 </RelativeLayout>

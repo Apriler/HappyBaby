@@ -55,9 +55,7 @@ public class PlaceFragment extends Fragment {
 
     private List<GridBean.DataBeanX.DataBean.ListBean> topicList;//热门话题模块
     private RecyclerView topicRv;  //热门话题RecyclerView
-    private LinearLayoutManager layoutManager; //布局管理者
-    private GridLayout mTopicGallery;
-    private DataAdapter dataAdapter;
+    private DataAdapter dataAdapter;//热门话题适配器
 
 
 
@@ -147,6 +145,10 @@ public class PlaceFragment extends Fragment {
                 topicRv.setAdapter(dataAdapter);
                 topicRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
 
+
+
+
+
             }
         });
         task.execute();
@@ -177,8 +179,6 @@ public class PlaceFragment extends Fragment {
 
 
     }
-
-
 
 
 
