@@ -50,7 +50,6 @@ public class OkHttpUtils {
                     //设置缓存目录和大小
                     //  int cacheSize = 10 << 20; // 10 MiB
                     //  Cache cache = new Cache(context.getCacheDir(), cacheSize);
-
                     okHttpClient = new OkHttpClient().newBuilder()
                             .connectTimeout(10, TimeUnit.SECONDS)
                             .readTimeout(15, TimeUnit.SECONDS)

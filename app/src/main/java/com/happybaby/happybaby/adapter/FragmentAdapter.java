@@ -39,6 +39,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
         return mStrList!=null?mStrList[position]:"";
 
-
     }
+
+
 }

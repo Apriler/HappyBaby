@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="5dp"
+ >
+<ImageView
+    android:id="@+id/event_img"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="fitXY"
+    />
+    <View
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:background="#c9ffffff"
+        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="165dp"
+        android:layout_height="65dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_event_black"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        >
+        <TextView
+
+            android:id="@+id/event_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北美保健热销榜"
+            android:textColor="@color/colorBlack"
+
+
+            />
+        <TextView
+            android:id="@+id/event_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="9sp"
+            android:text="懂你索要全场直降包邮保税啦"
+            android:layout_marginTop="5dp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
