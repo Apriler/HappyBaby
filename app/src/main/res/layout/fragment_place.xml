@@ -197,8 +197,8 @@
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_margin="5dp"
                 android:id="@+id/pull_down_rv"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

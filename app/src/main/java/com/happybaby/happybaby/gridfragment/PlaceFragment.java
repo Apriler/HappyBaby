@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.GridAdapter;
 import com.happybaby.happybaby.bean.GridBean;
+import com.happybaby.happybaby.bean.PlaceBean;
 import com.happybaby.happybaby.contant.GridUrlContants;
 import com.happybaby.happybaby.task.GridDownLoadTask;
 import com.squareup.picasso.Picasso;
@@ -56,6 +57,20 @@ public class PlaceFragment extends Fragment {
     private List<GridBean.DataBeanX.DataBean.ListBean> topicList;//热门话题模块
     private RecyclerView topicRv;  //热门话题RecyclerView
     private DataAdapter dataAdapter;//热门话题适配器
+    private List<PlaceBean.DataBean.ListBean> placeList; //下拉列表模块
+    private PlaceCommentAdapter placeCommentAdapter;  //下拉列表模块适配器
+    private RecyclerView pullDownRv;
+    private TextView userNameClick;    //用户名
+    private TextView attentionClick;   //关注按钮
+    private TextView likenessTv;    //相似产品
+    private TextView likeNumber;    //点赞数量，没有赞时，显示为“赞”
+    private TextView commentTv;    //评论数量
+    private TextView shareTv;    //用户名
+    private ImageView ivHead;  //用户头像
+    private ImageView likeClick;  //赞的动画效果
+
+
+
 
 
 
@@ -86,6 +101,7 @@ public class PlaceFragment extends Fragment {
         topicRv= (RecyclerView) rootView.findViewById(R.id.topic_recycler);
         gridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         views = new ArrayList<>();  //实例化轮播图集合
+        pullDownRv= (RecyclerView) rootView.findViewById(R.id.pull_down_rv); //下拉列表模块recyclerView
         //打开异步下载
         downloadExecutor = Executors.newFixedThreadPool(10);
         GridDownLoadTask task = new GridDownLoadTask(GridUrlContants.GRID_BASE);
@@ -146,6 +162,14 @@ public class PlaceFragment extends Fragment {
                 topicRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
 
 
+                //下拉列表模块数据解析
+                PlaceBean placeBean = gson.fromJson(result, PlaceBean.class);
+                //下拉列表模块
+                placeList=placeBean.getData().getList();
+                placeCommentAdapter=new PlaceCommentAdapter(getContext(),placeList);
+
+                pullDownRv.setAdapter(dataAdapter);
+//                pullDownRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
 
 
 

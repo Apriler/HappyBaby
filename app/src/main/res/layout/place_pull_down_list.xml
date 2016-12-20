@@ -8,8 +8,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/attention_name_click"
+            android:id="@+id/user_name_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -17,7 +21,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/attention_btn"
+            android:id="@+id/attention_click"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -31,17 +35,12 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pull_down_vp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="300dp" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pull_down_vp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,8 +49,8 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:gravity="center_horizontal"
             android:id="@+id/likeness_tv"
+            android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

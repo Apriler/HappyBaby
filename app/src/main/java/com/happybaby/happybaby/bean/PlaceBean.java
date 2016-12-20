@@ -1,4 +1,4 @@
-package com.happybaby.happybaby.bean.ManyRecommend;
+package com.happybaby.happybaby.bean;
 
 import java.util.List;
 
