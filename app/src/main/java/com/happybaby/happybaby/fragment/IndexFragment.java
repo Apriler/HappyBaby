@@ -4,6 +4,7 @@ package com.happybaby.happybaby.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -52,25 +53,33 @@ public class IndexFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_index, container, false);
         initView(view);
         initHttp();
+
+        Log.e("Tag", "-------------------------->");
+
         return view;
     }
+
+
     //加载数据
     private void initHttp() {
         OkHttpUtils okHttpUtils = OkHttpUtils.newInstance();//获取OkHttpUtils的单例
         okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE_TITLE, new Callback() {//开启异步GET请求
             @Override
             public void onFailure(Call call, IOException e) {       //失败
-                Looper.prepare();
-                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
-                Looper.loop();
+//                Looper.prepare();
+//                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
+//                Looper.loop();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {//成功
+
+                Log.e("Tag", "!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
                 String string = response.body().string();//返回json
                 if (!TextUtils.isEmpty(string)) {
                     Gson gson = new Gson();
-                    TablayoutTitle title = gson.fromJson(string, TablayoutTitle.class);//获取到title的实例
+                    final TablayoutTitle title = gson.fromJson(string, TablayoutTitle.class);//获取到title的实例
                     //添加标题数据放入集合
                     for (int i = 0; i < title.getData().size(); i++) {
                         String tab_name = title.getData().get(i).getTab_name();
@@ -83,11 +92,11 @@ public class IndexFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            adapter = new ContentAdapter(getChildFragmentManager(), fraglist, Strlist);
+                            Log.e("Tag", "2222222222222222222222222");
                             //创建适配器实例
                             mVpFrag.setAdapter(adapter);
-                            adapter = new ContentAdapter(getFragmentManager(), fraglist, Strlist);
-                            //刷新适配器
-                            adapter.notifyDataSetChanged();
+                            mVpFrag.setOffscreenPageLimit(title.getData().size());
                         }
                     });
                 }

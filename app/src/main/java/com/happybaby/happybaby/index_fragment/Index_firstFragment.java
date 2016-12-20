@@ -4,7 +4,7 @@ package com.happybaby.happybaby.index_fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -18,14 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.activity.WebviewActivity;
 import com.happybaby.happybaby.adapter.ADtextAdapter;
+import com.happybaby.happybaby.adapter.TestLoopAdapter;
 import com.happybaby.happybaby.contant.IndexUrlContants;
 import com.happybaby.happybaby.util.OkHttpUtils;
 import com.happybaby.happybaby.viewpagerwidget.FlowIndicator;
+import com.jude.rollviewpager.RollPagerView;
 import com.paradoxie.autoscrolltextview.VerticalTextview;
 import com.squareup.picasso.Picasso;
 
@@ -63,6 +64,9 @@ public class Index_firstFragment extends Fragment {
     private LinearLayout mLlMiaosha2;
     private View item2;
     private View item3;
+    private Handler handler;
+    private LinearLayout mLlItemBtn;
+    private RollPagerView mVpChaojidaogou;
 
 
     @Override
@@ -71,8 +75,17 @@ public class Index_firstFragment extends Fragment {
         // 解析布局
         View view = inflater.inflate(R.layout.fragment_index_first, container, false);
         initView(view);
+
         //重写轮播图，分开解析数据
         initHttp();
+//        handler = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//
+//
+//            }
+//        };
 
         return view;
     }
@@ -83,9 +96,9 @@ public class Index_firstFragment extends Fragment {
         okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE_RECOMMEND, new Callback() {//开启异步GET请求
             @Override
             public void onFailure(Call call, IOException e) {       //失败
-                Looper.prepare();
-                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
-                Looper.loop();
+//                Looper.prepare();
+//                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
+//                Looper.loop();
             }
 
             @Override
@@ -93,7 +106,11 @@ public class Index_firstFragment extends Fragment {
                 String string = response.body().string();//返回json
                 if (!TextUtils.isEmpty(string)) {
 
+//                    Message msg = handler.obtainMessage();
+//                    msg.obj = string;
                     try {
+
+
                         JSONObject jsonObject = new JSONObject(string);
                         JSONArray dataArray = jsonObject.getJSONArray("data");
 
@@ -105,17 +122,60 @@ public class Index_firstFragment extends Fragment {
                         initData2(dataArray);
                         //解析data4秒杀专场
                         initData4(dataArray);
+                        //解析data7超级导购
+                        initData7(dataArray);
+                        //解析data8超级导购
+                        initData8(dataArray);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
+                //String result = (String) msg.obj;
 
 
             }
         });
 
     }
+
+    private void initData8(JSONArray dataArray) throws Exception{
+        final JSONObject data8 = dataArray.getJSONObject(8);//取到data7
+        final JSONObject indata8 = data8.getJSONObject("data");
+    }
+
+    private void initData7(JSONArray dataArray) throws Exception {
+        final JSONObject data7 = dataArray.getJSONObject(7);//取到data7
+        final JSONObject indata7 = data7.getJSONObject("data");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final JSONArray list7 = indata7.getJSONArray("list");
+                    //加载图片到每个Imageview上去
+                    List<View> imgs = new ArrayList<View>();
+
+                    for (int i = 0; i < list7.length(); i++) {
+                        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_chaojidaogou, null, false);
+                        String videoPic = list7.getJSONObject(i).getString("videoPic");
+                        String videoTitle = list7.getJSONObject(i).getString("videoTitle");
+                        ImageView  iv = (ImageView) view.findViewById(R.id.iv_chaojidaogou);
+                        TextView  tv = (TextView) view.findViewById(R.id.tv_chaojidaogou);
+                        Picasso.with(getContext()).load(videoPic).into(iv);
+                        tv.setText(videoTitle);
+                        imgs.add(view);
+                    }
+                    ADtextAdapter adapter = new ADtextAdapter(imgs);
+                    mVpChaojidaogou.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     private void initData4(JSONArray dataArray) throws Exception {
         final JSONObject data4 = dataArray.getJSONObject(4);//取到data3
@@ -125,53 +185,51 @@ public class Index_firstFragment extends Fragment {
             public void run() {
                 try {
                     final JSONArray list4 = indata4.getJSONArray("list");
-                        View item1 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
+                    View item1 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
 
-                        //图片
-                        String ad_pic = list4.getJSONObject(2).getString("ad_pic");
-                        ImageView iv_back1= (ImageView) item1.findViewById(R.id.iv_back);
-                        iv_back1.setScaleType(ImageView.ScaleType.FIT_XY);
-                        Picasso.with(getContext()).load(ad_pic).into(iv_back1);
-                        //标题
-                        String ad_word = list4.getJSONObject(2).getString("ad_word");
-                        TextView tv_bigtitle= (TextView) item1.findViewById(R.id.tv_bigtitle);
-                        tv_bigtitle.setText(ad_word);
-                        //标题
-                        String ad_introduction = list4.getJSONObject(2).getString("ad_introduction");
-                        TextView tv_smalltitle= (TextView) item1.findViewById(R.id.tv_smalltitle);
-                        tv_smalltitle.setText(ad_introduction);
-                        mRlMiaosha1.addView(item1);
+                    //图片
+                    String ad_pic = list4.getJSONObject(2).getString("ad_pic");
+                    ImageView iv_back1 = (ImageView) item1.findViewById(R.id.iv_back);
+                    iv_back1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    Picasso.with(getContext()).load(ad_pic).into(iv_back1);
+                    //标题
+                    String ad_word = list4.getJSONObject(2).getString("ad_word");
+                    TextView tv_bigtitle = (TextView) item1.findViewById(R.id.tv_bigtitle);
+                    tv_bigtitle.setText(ad_word);
+                    //标题
+                    String ad_introduction = list4.getJSONObject(2).getString("ad_introduction");
+                    TextView tv_smalltitle = (TextView) item1.findViewById(R.id.tv_smalltitle);
+                    tv_smalltitle.setText(ad_introduction);
+                    mRlMiaosha1.addView(item1);
 
 //                    View item2 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
 
-                        //图片
-                        String ad_pic2 = list4.getJSONObject(1).getString("ad_pic");
-                        ImageView iv_back2= (ImageView) item2.findViewById(R.id.iv_back);
+                    //图片
+                    String ad_pic2 = list4.getJSONObject(1).getString("ad_pic");
+                    ImageView iv_back2 = (ImageView) item2.findViewById(R.id.iv_back);
 
-                        Picasso.with(getContext()).load(ad_pic2).into(iv_back2);
-                        //标题
-                        String ad_word2 = list4.getJSONObject(1).getString("ad_word");
-                        TextView tv_bigtitle2= (TextView) item2.findViewById(R.id.tv_bigtitle);
-                        tv_bigtitle2.setText(ad_word2);
+                    Picasso.with(getContext()).load(ad_pic2).into(iv_back2);
+                    //标题
+                    String ad_word2 = list4.getJSONObject(1).getString("ad_word");
+                    TextView tv_bigtitle2 = (TextView) item2.findViewById(R.id.tv_bigtitle);
+                    tv_bigtitle2.setText(ad_word2);
 //                        mLlMiaosha2.addView(item2);
 
 //                    View item3 = LayoutInflater.from(getContext()).inflate(R.layout.item_index_black_text, mGridLayout, false);
-                        //图片
-                        String ad_pic3 = list4.getJSONObject(3).getString("ad_pic");
-                        ImageView iv_back3= (ImageView) item3.findViewById(R.id.iv_back);
+                    //图片
+                    String ad_pic3 = list4.getJSONObject(3).getString("ad_pic");
+                    ImageView iv_back3 = (ImageView) item3.findViewById(R.id.iv_back);
 
-                        Picasso.with(getContext()).load(ad_pic3).into(iv_back3);
-                        //标题
-                        String ad_word3 = list4.getJSONObject(3).getString("ad_word");
-                        TextView tv_bigtitle3= (TextView) item3.findViewById(R.id.tv_bigtitle);
-                        tv_bigtitle3.setText(ad_word3);
-                        //标题
-                        String ad_introduction3 = list4.getJSONObject(3).getString("ad_introduction");
-                        TextView tv_smalltitle3= (TextView) item3.findViewById(R.id.tv_smalltitle);
-                        tv_smalltitle3.setText(ad_introduction3);
+                    Picasso.with(getContext()).load(ad_pic3).into(iv_back3);
+                    //标题
+                    String ad_word3 = list4.getJSONObject(3).getString("ad_word");
+                    TextView tv_bigtitle3 = (TextView) item3.findViewById(R.id.tv_bigtitle);
+                    tv_bigtitle3.setText(ad_word3);
+                    //标题
+                    String ad_introduction3 = list4.getJSONObject(3).getString("ad_introduction");
+                    TextView tv_smalltitle3 = (TextView) item3.findViewById(R.id.tv_smalltitle);
+                    tv_smalltitle3.setText(ad_introduction3);
 //                        mLlMiaosha2.addView(item3);
-
-
 
 
                 } catch (JSONException e) {
@@ -203,7 +261,12 @@ public class Index_firstFragment extends Fragment {
                     Picasso.with(getContext()).load(pic4).into(mIvItem4);
                     String pic5 = list2.getJSONObject(4).getString("pic");
                     Picasso.with(getContext()).load(pic5).into(mIvItem5);
-
+//                    for(int i= 0 ; i<list2.length(); i ++){
+//                        ImageView iv=  new ImageView(getContext());
+//                        String pic1 = list2.getJSONObject(i).getString("pic");
+//                        Picasso.with(getContext()).load(pic1).into(iv);
+//                        mLlItemBtn.addView(iv);
+//                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -341,12 +404,16 @@ public class Index_firstFragment extends Fragment {
 //        mIvItem4.setOnClickListener(this);
         mIvItem5 = (ImageView) view.findViewById(R.id.iv_item5);
 //        mIvItem5.setOnClickListener(this);
-
+        mLlItemBtn = (LinearLayout) view.findViewById(R.id.ll_item_btn);
         mRlMiaosha1 = (RelativeLayout) view.findViewById(R.id.rl_miaosha1);
 
         mLlMiaosha2 = (LinearLayout) view.findViewById(R.id.ll_miaosha2);
         item2 = view.findViewById(R.id.include1);
         item3 = view.findViewById(R.id.include2);
+
+
+        mVpChaojidaogou = (RollPagerView) view.findViewById(R.id.vp_chaojidaogou);
+
     }
 
 
