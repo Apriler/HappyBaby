@@ -2,9 +2,6 @@ package com.happybaby.happybaby.fragment;
 
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
@@ -30,7 +26,6 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 /**
@@ -96,7 +91,7 @@ public class IndexFragment extends Fragment {
                             Log.e("Tag", "2222222222222222222222222");
                             //创建适配器实例
                             mVpFrag.setAdapter(adapter);
-                            mVpFrag.setOffscreenPageLimit(title.getData().size());
+                            //mVpFrag.setOffscreenPageLimit(title.getData().size());
                         }
                     });
                 }

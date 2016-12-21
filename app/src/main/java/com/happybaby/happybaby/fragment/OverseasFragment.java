@@ -56,6 +56,7 @@ public class OverseasFragment extends Fragment {
         mViewpageOverseas = (ViewPager) view.findViewById(R.id.viewpage_overseas);
         adapter=new FragmentAdapter(getChildFragmentManager(),dates,OverseasConstant.COUNTRY_NAME);
         mViewpageOverseas.setAdapter(adapter);
+
         mTabLayoutOverseas.setupWithViewPager(mViewpageOverseas);
     }
 }

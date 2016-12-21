@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.OverseasCountry;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -119,14 +119,14 @@ public class AdListView extends BaseAdapter {
             holer1.mGood1Tile.setText(date.getTitle());
             holer1.mGoods1Comment.setText(date.getComment_num());
             holer1.mGoods1Like.setText(date.getLike_num());
-            Picasso.with(context).load(date.getPhone_head_pic()).into(holer1.mGoods1Img);
+            Glide.with(context).load(date.getPhone_head_pic()).into(holer1.mGoods1Img);
             break;
         case TYPE2:
             holer2.mGood2Introduction.setText(date.getIntroduction());
             holer2.mGood2Tile.setText(date.getTitle());
             holer2.mGoods2Comment.setText(date.getComment_num());
             holer2.mGoods2Like.setText(date.getLike_num());
-            Picasso.with(context).load(date.getPhone_small_pic()).into(holer2.mGoods2Img);
+            Glide.with(context).load(date.getPhone_small_pic()).into(holer2.mGoods2Img);
             break;
 
     }

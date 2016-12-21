@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:orientation="vertical">
 <LinearLayout
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:layout_marginTop="10dp"
+        android:ellipsize="end"
         android:text="asdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadd"
         />
     <LinearLayout
@@ -59,5 +60,8 @@
         android:layout_height="120dp"
         android:scaleType="fitXY"/>
 </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
 </LinearLayout>

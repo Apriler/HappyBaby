@@ -8,7 +8,8 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,16 +87,23 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray" />
 
-            <ListView
-                android:id="@+id/goods_lv"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/goods_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="5dp">
 
-                >
 
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
+            <!--<ListView-->
+            <!--android:id="@+id/goods_lv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--&gt;-->
+            <!--</ListView>-->
 
             <View
                 android:layout_width="match_parent"
@@ -153,10 +161,12 @@
 
                 </LinearLayout>
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/colorGray" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/category_recycler"
                 android:layout_width="match_parent"
@@ -279,12 +289,14 @@
 
                 </LinearLayout>
             </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/hot_event_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/hot_event_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -315,7 +327,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="精品推荐"
+                        android:text="最热晒图"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
 
@@ -342,6 +354,20 @@
 
                 </LinearLayout>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/hot_show_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scrollbars="none">
+
+            </android.support.v7.widget.RecyclerView>
 
             <View
                 android:layout_width="match_parent"
@@ -399,6 +425,22 @@
 
                 </LinearLayout>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/may_like_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+
         </LinearLayout>
 
 

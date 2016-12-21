@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.OverseasCountry;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyHolder myHolder = (MyHolder) holder;
         OverseasCountry.DataBeen.CategoryListBean.DataBeanXX.ListBeanXX date = datas.get(position);
 
-        Picasso.with(context).load(date.getCategory_pic_link()).into(myHolder.mHotImg);
+        Glide.with(context).load(date.getCategory_pic_link()).into(myHolder.mHotImg);
 
 
     }

@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.OverseasCountry;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class HotEventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyHolder myHolder = (MyHolder) holder;
         OverseasCountry.DataBeen.HotEventListBean.DataBeanXXXX.ListBeanXXXX date = datas.get(position);
 
-      Picasso.with(context).load(date.getAd_pic_400()).into(myHolder.mLunboImg);
+        Glide.with(context).load(date.getAd_pic_400()).into(myHolder.mLunboImg);
         myHolder.mAdWord.setText(date.getAd_word());
         myHolder.mAdAdIntroduction.setText(date.getAd_introduction());
 
