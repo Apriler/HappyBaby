@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.FragmentAdapter;
+import com.happybaby.happybaby.constant.MyConstant;
 import com.happybaby.happybaby.constant.OverseasConstant;
 import com.happybaby.happybaby.voerseasfragment.BlankFragment;
 
@@ -45,7 +46,15 @@ public class OverseasFragment extends Fragment {
     private void initData() {
         dates=new ArrayList<>();
         for (int i = 0; i < OverseasConstant.COUNTRY_NAME.length; i++) {
+
+            int count=OverseasConstant.COUNTRY_ID[i];
             BlankFragment fragment=new BlankFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(MyConstant.COUNTRY_KEY, count);
+            fragment.setArguments(bundle);
+
+
+
             dates.add(fragment);
         }
 

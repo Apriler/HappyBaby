@@ -6,7 +6,8 @@
     tools:context=".voerseasfragment.BlankFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <com.happybaby.happybaby.viewpagerwidget.CustomScrollView
+        android:id="@+id/refresh_sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -31,71 +32,7 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/tuijian_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/goods_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="好物推荐"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/goods_more_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="MORE" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_circle_arrow_grey" />
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/goods_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-
-
-            </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/goods_layout" />
             <!--<ListView-->
             <!--android:id="@+id/goods_lv"-->
             <!--android:layout_width="match_parent"-->
@@ -109,70 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/colorGray" />
-            <!--             推荐栏       -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/category_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/category_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="精品推荐"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/category_more_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="MORE" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_circle_arrow_grey" />
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/category_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                />
+            <!--           精品推荐栏       -->
+            <include layout="@layout/category_layout" />
 
             <View
                 android:layout_width="match_parent"
@@ -237,65 +112,7 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray" />
             <!--==================================热门活动=====================================-->
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/hot_event_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/hot_event_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="热门活动"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/hot_event_more_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="MORE" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_circle_arrow_grey" />
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/hot_event_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/hot_event_layout" />
 
             <View
                 android:layout_width="match_parent"
@@ -303,148 +120,19 @@
                 android:background="@color/colorGray" />
             <!--====================================最热晒图==================================-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/hot_show_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/hot_show_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="最热晒图"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/hot_show_more_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="MORE" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_circle_arrow_grey" />
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/hot_show_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:scrollbars="none">
-
-            </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/hot_show_layout" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/colorGray" />
             <!--==============================猜你喜欢=========================================-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/may_like_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/may_like_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="猜你喜欢"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/may_like_more_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="MORE" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_circle_arrow_grey" />
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/may_like_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                >
-
-            </android.support.v7.widget.RecyclerView>
-
+            <include layout="@layout/may_like_layout" />
+            <!--              ===================加载更多================================     -->
+            <include layout="@layout/load_more_layout" />
 
         </LinearLayout>
 
 
-    </ScrollView>
-
-
+    </com.happybaby.happybaby.viewpagerwidget.CustomScrollView>
 </FrameLayout>

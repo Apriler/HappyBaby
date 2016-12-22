@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
-import com.happybaby.happybaby.adapter.AdListView;
 import com.happybaby.happybaby.adapter.CategoryAdapter;
 import com.happybaby.happybaby.adapter.GoodsAdapter;
 import com.happybaby.happybaby.adapter.HotEventAdapter;
@@ -30,8 +29,10 @@ import com.happybaby.happybaby.adapter.ViewAdapter;
 import com.happybaby.happybaby.base.BaseFragment;
 import com.happybaby.happybaby.bean.MyLike;
 import com.happybaby.happybaby.bean.OverseasCountry;
+import com.happybaby.happybaby.constant.MyConstant;
 import com.happybaby.happybaby.constant.OverseasConstant;
 import com.happybaby.happybaby.util.OkHttpUtils;
+import com.happybaby.happybaby.viewpagerwidget.CustomScrollView;
 import com.happybaby.happybaby.viewpagerwidget.MyItemDecoration;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
@@ -54,9 +55,10 @@ public class BlankFragment extends BaseFragment {
     private LinearLayout mGoodsMore, mCategoryMoreLl, mHotEventMore, mHotShowMore, mMayLikeMore, mHotRecommendedMore;
     private ImageView mGoodsImg, mCategoryImg, mHotEventImg, mHotShowImg, mMayLikeImg, mHotRecommendedImg;
     //     测试
-    private ListView mGoodslv;//好物推荐列表
+    // private ListView mGoodslv;//好物推荐列表
     //  好物适配器
-    private AdListView goodAdapter;
+    // private AdListView goodAdapter;
+    private CustomScrollView mCustomScrollView;
 
     private List<String> dates;
     //    布局集合
@@ -64,9 +66,9 @@ public class BlankFragment extends BaseFragment {
     //轮播适配器
     private ViewAdapter Lunadapter;
 
-    private RecyclerView mCategoryRecycler, mHotEventRv, mHotShowRv, mMayLikeRv,mGoodsRv;
+    private RecyclerView mCategoryRecycler, mHotEventRv, mHotShowRv, mMayLikeRv, mGoodsRv;
 
-    private int currentPosition;
+
     //图片数据源
     private List<OverseasCountry.DataBeen.AdListBean.DataBean.ListBean> adListDates;
 
@@ -90,14 +92,19 @@ public class BlankFragment extends BaseFragment {
     private HotShowAdapter hotShowAdapter;
 
     //    猜你喜欢数据源
-    private List<MyLike.DataBean.ListBean> dateMayLikeList;
+    private List<MyLike.DataBean.ListBean> dateMayLikeList, newList;
     private MayLikeAdapter mayLikeAdapter;
     private MyLike myLike;
 
 
     private OverseasCountry country;
 
-    private LinearLayout mCategoryLl;
+    private LinearLayout loadMoreLayout;
+    private int likePage = 1;
+    private int count;
+    private String countryUrl;
+    private String mayLikeUrl;
+
 
 //----------------
 
@@ -106,11 +113,54 @@ public class BlankFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
+
+
         initView(view);
         initDate();
-
+        mayLikeShow();
 
         return view;
+    }
+
+    private void mayLikeShow() {
+
+
+        mayLikeUrl = String.format(OverseasConstant.MAYLIKE_URL, count, likePage);
+
+        //        第二段Url
+
+        OkHttpUtils.doAsyncGETRequest(mayLikeUrl, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response != null) {
+                    final String result2 = response.body().string();
+
+                    Gson gson = new Gson();
+                    myLike = gson.fromJson(result2, MyLike.class);
+                    dateMayLikeList = myLike.getData().getList();
+                    Log.e("Tag", "size ====================================== " + dateMayLikeList.size());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initMyLikeData();
+                        }
+                    });
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 
@@ -121,8 +171,15 @@ public class BlankFragment extends BaseFragment {
         dateHotEventList = new ArrayList<>();
         dateHotShowList = new ArrayList<>();
         dateMayLikeList = new ArrayList<>();
+        Bundle bundle = getArguments();
+        count = bundle.getInt(MyConstant.COUNTRY_KEY);
+        countryUrl = String.format(OverseasConstant.COUNTRY_URL, count);
+
+
+        // Log.e("NEWURL", "countryUrl====---------========-----========" + countryUrl);
+
 //        第一段Url
-        OkHttpUtils.doAsyncGETRequest(OverseasConstant.UP_URL1, new Callback() {
+        OkHttpUtils.doAsyncGETRequest(countryUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //失败
@@ -131,7 +188,6 @@ public class BlankFragment extends BaseFragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 //成功
-
                 if (response != null) {
                     Log.e("Tag", "Thread = " + Thread.currentThread().getName());
 
@@ -166,37 +222,83 @@ public class BlankFragment extends BaseFragment {
 
             }
         });
-        //        第二段Url
 
-        OkHttpUtils.doAsyncGETRequest(OverseasConstant.UP_URL3, new Callback() {
+
+    }
+
+    //==================================================
+    private void initView(View view) {
+
+        mCustomScrollView = (CustomScrollView) view.findViewById(R.id.refresh_sv);
+        mLunboVp = (RollPagerView) view.findViewById(R.id.lunbo_vp);
+
+        mGoodsRv = (RecyclerView) view.findViewById(R.id.goods_rv);
+        // mTJlv.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, dates));
+        mGoodsMore = (LinearLayout) view.findViewById(R.id.goods_more_ll);
+        mGoodsImg = (ImageView) view.findViewById(R.id.goods_img);
+
+//----------------------------实例化推荐控件------
+        mCategoryImg = (ImageView) view.findViewById(R.id.category_img);
+
+
+        mCategoryMoreLl = (LinearLayout) view.findViewById(R.id.category_more_ll);
+
+        mCategoryRecycler = (RecyclerView) view.findViewById(R.id.category_recycler);
+
+//        -----------------------实例化热门推荐------------------------------------
+        mHotRecommendedImg = (ImageView) view.findViewById(R.id.hot_recommended_img);
+        mHotRecommendedMore = (LinearLayout) view.findViewById(R.id.hot_recommended_more_ll);
+
+        //--------------------------------实例化热门活动控件-------
+        mHotEventRv = (RecyclerView) view.findViewById(R.id.hot_event_rv);
+        mHotEventMore = (LinearLayout) view.findViewById(R.id.hot_event_more_ll);
+        mHotEventImg = (ImageView) view.findViewById(R.id.hot_event_img);
+//       --------------- 最热晒图控件实例化---------------------
+        mHotShowMore = (LinearLayout) view.findViewById(R.id.hot_show_more_ll);
+        mHotShowImg = (ImageView) view.findViewById(R.id.hot_show_img);
+        mHotShowRv = (RecyclerView) view.findViewById(R.id.hot_show_rv);
+
+//        ---------------猜你喜欢控件实例化-------------------
+        mMayLikeMore = (LinearLayout) view.findViewById(R.id.may_like_more_ll);
+        mMayLikeImg = (ImageView) view.findViewById(R.id.may_like_img);
+        mMayLikeRv = (RecyclerView) view.findViewById(R.id.may_like_rv);
+//底部加载更多
+        loadMoreLayout = (LinearLayout) view.findViewById(R.id.loadMore_layout);
+        mCustomScrollView.setScanScrollChangedListener(new CustomScrollView.ISmartScrollChangedListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onScrolledToBottom() {
+//如果加载更多不可见，设置成可见
+                if (loadMoreLayout.getVisibility() == View.GONE) {
+                    loadMoreLayout.setVisibility(View.VISIBLE);
+                    //开启异步加载数据
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            newLikeData();
+
+                        }
+                    }).start();
+                }
+
+            }
+
+            @Override
+            public void onScrolledToTop() {
 
 
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response != null) {
-                    final String result2 = response.body().string();
-                    Log.e("Tag", "result2 ============ " + result2);
-                    Gson gson = new Gson();
-                    myLike = gson.fromJson(result2, MyLike.class);
+            public void onScrolled() {
 
-                    dateMayLikeList = myLike.getData().getList();
-                    Log.e("Tag", "size ====================================== " + dateMayLikeList.size());
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            initMyLikeData();
-                        }
-                    });
-                }
             }
         });
     }
-
 
     //    ====================猜你喜欢========================
     private void initMayLike() {
@@ -224,6 +326,44 @@ public class BlankFragment extends BaseFragment {
 
             }
         });
+
+    }
+
+    private void newLikeData() {
+        likePage++;
+        mayLikeUrl = String.format(OverseasConstant.MAYLIKE_URL, count, likePage);
+
+        OkHttpUtils.doAsyncGETRequest(mayLikeUrl, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response != null) {
+                    final String result2 = response.body().string();
+
+                    Gson gson = new Gson();
+                    myLike = gson.fromJson(result2, MyLike.class);
+                    newList = myLike.getData().getList();
+                    dateMayLikeList.addAll(newList);
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //取消加载更多布局
+                            loadMoreLayout.setVisibility(View.GONE);
+                            //加载更多数据
+
+                            mayLikeAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+        });
+
 
     }
 
@@ -279,27 +419,7 @@ public class BlankFragment extends BaseFragment {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
         mHotEventRv.setLayoutManager(layoutManager);
 
-        mHotEventRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                Log.e("Tag", "dy = " + dy);
-                //获得第一个可见item的位置
-                int firstVisiableItemPosition = layoutManager.findFirstVisibleItemPosition();
-                if (firstVisiableItemPosition ==(dateHotEventList.size()-1 )) {
-                    showToast(""+(dateHotEventList.size()-1));
-                   // backTopBtn.setVisibility(View.VISIBLE);
-                } else {
-                   // backTopBtn.setVisibility(View.GONE);
-                }
-            }
-        });
     }
 //===============================热门推荐======================
 
@@ -343,42 +463,6 @@ public class BlankFragment extends BaseFragment {
 
     }
 
-    //==================================================
-    private void initView(View view) {
-        mLunboVp = (RollPagerView) view.findViewById(R.id.lunbo_vp);
-
-        mGoodsRv = (RecyclerView) view.findViewById(R.id.goods_rv);
-        // mTJlv.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, dates));
-        mGoodsMore = (LinearLayout) view.findViewById(R.id.goods_more_ll);
-        mGoodsImg = (ImageView) view.findViewById(R.id.goods_img);
-
-//----------------------------实例化推荐控件------
-        mCategoryImg = (ImageView) view.findViewById(R.id.category_img);
-
-        mCategoryLl = (LinearLayout) view.findViewById(R.id.category_ll);
-
-        mCategoryMoreLl = (LinearLayout) view.findViewById(R.id.category_more_ll);
-
-        mCategoryRecycler = (RecyclerView) view.findViewById(R.id.category_recycler);
-
-//        -----------------------实例化热门推荐------------------------------------
-        mHotRecommendedImg = (ImageView) view.findViewById(R.id.hot_recommended_img);
-        mHotRecommendedMore = (LinearLayout) view.findViewById(R.id.hot_recommended_more_ll);
-
-        //--------------------------------实例化热门活动控件-------
-        mHotEventRv = (RecyclerView) view.findViewById(R.id.hot_event_rv);
-        mHotEventMore = (LinearLayout) view.findViewById(R.id.hot_event_more_ll);
-        mHotEventImg = (ImageView) view.findViewById(R.id.hot_event_img);
-//       --------------- 最热晒图控件实例化---------------------
-        mHotShowMore = (LinearLayout) view.findViewById(R.id.hot_show_more_ll);
-        mHotShowImg = (ImageView) view.findViewById(R.id.hot_show_img);
-        mHotShowRv = (RecyclerView) view.findViewById(R.id.hot_show_rv);
-
-//        ---------------猜你喜欢控件实例化-------------------
-        mMayLikeMore = (LinearLayout) view.findViewById(R.id.may_like_more_ll);
-        mMayLikeImg = (ImageView) view.findViewById(R.id.may_like_img);
-        mMayLikeRv = (RecyclerView) view.findViewById(R.id.may_like_rv);
-    }
 
     //加载好物数据
     private void initGoods() {
@@ -396,12 +480,12 @@ public class BlankFragment extends BaseFragment {
         } else {
             mGoodsMore.setVisibility(View.GONE);
         }
-        goodsAdapter=new GoodsAdapter(dataBeanXList,getContext());
+        goodsAdapter = new GoodsAdapter(dataBeanXList, getContext());
         mGoodsRv.setAdapter(goodsAdapter);
         goodsAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
             @Override
             public void itemClick(View itemView, int position) {
-                showToast("好物" +position);
+                showToast("好物" + position);
 
             }
         });
@@ -466,7 +550,7 @@ public class BlankFragment extends BaseFragment {
     }
 
     /**
-     * 动态设置ListView的高度========================
+     * ================= 动态设置ListView的高度 ========================
      *
      * @param listView
      */
