@@ -6,13 +6,14 @@
     <string name="tab_events_takephoto">格子圈</string>
     <string name="tab_shopping_car">购物车</string>
     <string name="tab_person">我的</string>
-    
-    
+
+
     <string name="likeness_type">1件相关商品</string>
     <string name="like_text">赞</string>
     <string name="comment_text">评论</string>
     <string name="share_text">分享</string>
-
+    <string name="attention_be">马上关注</string>
+    <string name="low_key">你太低调了，还没有关注过任何人</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

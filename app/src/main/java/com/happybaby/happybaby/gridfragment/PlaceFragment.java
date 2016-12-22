@@ -11,13 +11,16 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,19 +37,34 @@ import com.happybaby.happybaby.bean.GridBean;
 import com.happybaby.happybaby.bean.PlaceBean;
 import com.happybaby.happybaby.contant.GridUrlContants;
 import com.happybaby.happybaby.task.GridDownLoadTask;
+import com.happybaby.happybaby.util.OkHttpUtils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PlaceFragment extends Fragment {
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+public class PlaceFragment extends Fragment  {
     private List<ImageView> views; //轮播图集合
     private ViewPager gridVp;   //格子圈轮播图
     private LinearLayout addotLayout;  //轮播图圆点
     private List<GridBean.DataBeanX.DataBean.ListBean> list;  //轮播图网址
-
+    private RecyclerView pullDownRv;
     private List<GridBean.DataBeanX.DataBean.ListBean> themeList;  //热门图片网址
     private LayoutInflater mInflater;  //布局解析
     private ViewPager mGridVp;    //热门图片ViewPager
@@ -59,18 +77,11 @@ public class PlaceFragment extends Fragment {
     private DataAdapter dataAdapter;//热门话题适配器
     private List<PlaceBean.DataBean.ListBean> placeList; //下拉列表模块
     private PlaceCommentAdapter placeCommentAdapter;  //下拉列表模块适配器
-    private RecyclerView pullDownRv;
-    private TextView userNameClick;    //用户名
-    private TextView attentionClick;   //关注按钮
-    private TextView likenessTv;    //相似产品
-    private TextView likeNumber;    //点赞数量，没有赞时，显示为“赞”
-    private TextView commentTv;    //评论数量
-    private TextView shareTv;    //用户名
-    private ImageView ivHead;  //用户头像
-    private ImageView likeClick;  //赞的动画效果
-
-
-
+    private XRecyclerView downRv;  //下拉模块RecyclerView
+    private int page=1;      //设定加载第几页
+    private Retrofit retrofit;  //Retrofit请求
+    private PlaceService placeService;  //服务
+    private List<PlaceBean.DataBean.ListBean> lists;  //数据源集合
 
 
 
@@ -81,8 +92,82 @@ public class PlaceFragment extends Fragment {
         mInflater=LayoutInflater.from(getContext());
         initView(rootView);
         initData();
+        initRetrofit();
+        initPlaceBean();
         return rootView;
     }
+
+
+
+
+    private void initPlaceBean() {
+        placeService.getPlaceString(page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<PlaceBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(final PlaceBean placeBean) {
+                        //获取集合
+                        Log.e("Tag","++++++++++++++");
+                        lists = placeBean.getData().getList();
+
+                        placeCommentAdapter= new PlaceCommentAdapter(getContext(), lists);  //实例化适配器
+                        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+                        downRv.setLayoutManager(mLinearLayoutManager);
+                        downRv.setAdapter(placeCommentAdapter);
+                        downRv.setPullRefreshEnabled(true);
+                        downRv.setLoadingMoreEnabled(true);
+                        downRv.setLoadingMoreProgressStyle(ProgressStyle.BallGridBeat);
+                        downRv.setLoadingListener(new XRecyclerView.LoadingListener() {
+                            @Override
+                            public void onRefresh() {
+                                new Handler().postDelayed(new Runnable(){
+                                    public void run() {
+                                        page++;
+                                        List<PlaceBean.DataBean.ListBean> list1 = placeBean.getData().getList();
+                                        lists.addAll(list1);
+                                        downRv.refreshComplete();
+                                        placeCommentAdapter.notifyDataSetChanged();
+
+                                        Log.e("Tag", "!!!!!!!!!!!!!!!!!!!!!!>");
+                                    }
+                                }, 1000);
+                            }
+
+                            @Override
+                            public void onLoadMore() {
+                                Log.e("Tag", "---------------->");
+
+                            }
+                        });
+                    }
+                });
+
+    }
+
+    private void initRetrofit() {
+        retrofit=new Retrofit.Builder()
+                .baseUrl(GridUrlContants.GRID_CHAT_BASE)  //绑定路径
+                .client(OkHttpUtils.newOkHttpClient())  //OkHttpClient单例模式
+                .addConverterFactory(GsonConverterFactory.create()) //Gson解析
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //RXJava回调
+                .build();  //创建Retrofit
+
+        placeService = retrofit.create(PlaceService.class);
+    }
+
+
 
 
     private void initData() {
@@ -102,6 +187,7 @@ public class PlaceFragment extends Fragment {
         gridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         views = new ArrayList<>();  //实例化轮播图集合
         pullDownRv= (RecyclerView) rootView.findViewById(R.id.pull_down_rv); //下拉列表模块recyclerView
+        downRv= (XRecyclerView) rootView.findViewById(R.id.down_rv);
         //打开异步下载
         downloadExecutor = Executors.newFixedThreadPool(10);
         GridDownLoadTask task = new GridDownLoadTask(GridUrlContants.GRID_BASE);
@@ -157,21 +243,9 @@ public class PlaceFragment extends Fragment {
                 //热门话题模块
                 topicList= gridBean.getData().get(3).getData().getList();
                 dataAdapter=new DataAdapter(getContext(),topicList);
-    
+
                 topicRv.setAdapter(dataAdapter);
                 topicRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
-
-
-                //下拉列表模块数据解析
-                PlaceBean placeBean = gson.fromJson(result, PlaceBean.class);
-                //下拉列表模块
-                placeList=placeBean.getData().getList();
-                placeCommentAdapter=new PlaceCommentAdapter(getContext(),placeList);
-
-                pullDownRv.setAdapter(dataAdapter);
-//                pullDownRv.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
-
-
 
             }
         });

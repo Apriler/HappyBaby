@@ -60,7 +60,7 @@ public class PlaceCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //由布局生成生成View
-        View converView = inflater.inflate(R.layout.place_topic_view, parent, false);
+        View converView = inflater.inflate(R.layout.place_pull_down_list, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(converView);
         return viewHolder;
     }
@@ -75,11 +75,10 @@ public class PlaceCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //绑定数据
 
         viewHolder.userNameClick.setText(data.getUser_info().getNick_name());  //用户名
-        viewHolder.attentionClick.setText(data.getId()); //关注按钮
-        viewHolder.likenessTv.setText(data.getProduct_count()); //相似产品
+//        viewHolder.attentionClick.setText(data.getId()); //关注按钮
+        viewHolder.likenessTv.setText(data.getProduct_count()+"件相关商品"); //相似产品
         viewHolder.likeNumber.setText(data.getZan_num()); //点赞数量，没有赞时，显示为“赞”
         viewHolder.commentTv.setText(data.getComment_num());  //评论数量
-        viewHolder.shareTv.setText(data.getShare_info().getShare_text_other_qq());  //分享  **
         Picasso.with(context).load(data.getUser_info().getAvatar()).into(viewHolder.ivHead);//用户头像
         viewHolder.likeClick.setImageResource(data.getIs_zan());  //赞的动画效果
 

@@ -1,13 +1,34 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.happybaby.happybaby.gridfragment.FollowFragment">
 
     <!-- TODO: Update blank fragment layout -->
+   <ImageView
+       android:id="@+id/attention_iv"
+       android:layout_width="100dp"
+       android:layout_height="wrap_content"
+       android:layout_margin="20dp"
+       android:layout_gravity="center"
+       android:src="@mipmap/icon_head_no_attention"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="关注" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/low_key"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/attention_at"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="@string/attention_be"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@drawable/place_view"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

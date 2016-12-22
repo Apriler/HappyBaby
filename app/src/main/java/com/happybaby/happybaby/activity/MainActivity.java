@@ -14,6 +14,7 @@ import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.fragment.GridFragment;
 import com.happybaby.happybaby.fragment.IndexFragment;
 import com.happybaby.happybaby.fragment.OverseasFragment;
+import com.happybaby.happybaby.shopping_fragment.ShoppingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_events_new_takephoto, TAB_EVENTS_TAKEPHOTO),
                 GridFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_shopping_car,  TAB_SHOPPING_CAR),
-                IndexFragment.class, null);
+                ShoppingFragment.class, null);
         mFragmentTabHost.addTab(buildTabSpec(R.drawable.tablayout_item_person, TAB_PERSON),
                 IndexFragment.class, null);
         //去掉分割线

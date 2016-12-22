@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Created by jianquan on 2016/12/13.
- *
+ * 异步下载类
  */
 
 public class GridDownLoadTask extends AsyncTask<Void,Void,String> {
