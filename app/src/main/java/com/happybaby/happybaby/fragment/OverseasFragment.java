@@ -52,9 +52,6 @@ public class OverseasFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putInt(MyConstant.COUNTRY_KEY, count);
             fragment.setArguments(bundle);
-
-
-
             dates.add(fragment);
         }
 

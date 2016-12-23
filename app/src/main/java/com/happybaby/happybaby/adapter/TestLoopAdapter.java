@@ -21,7 +21,6 @@ import java.util.List;
  */
 
 public class TestLoopAdapter extends PagerAdapter {
-    //数据源
     private List<View> listViews;
 
     public TestLoopAdapter(List<View> listViews) {
@@ -31,12 +30,10 @@ public class TestLoopAdapter extends PagerAdapter {
     //销毁视图
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        View itemView=listViews.get(position);
         container.removeView(listViews.get(position));
     }
     @Override
     public int getCount() {
-        //设置数数据源无限大
         return listViews.size();
     }
 

@@ -16,7 +16,7 @@ import android.webkit.WebViewClient;
 import com.happybaby.happybaby.R;
 
 //webview 加载网页
-public class WebviewActivity extends AppCompatActivity {
+public class WebviewActivity extends BaseActivity {
 
     private WebView mWebview;
     private Toolbar toolbar;

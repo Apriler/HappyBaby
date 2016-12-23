@@ -2,6 +2,9 @@ package com.happybaby.happybaby.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.ContentAdapter;
 import com.happybaby.happybaby.bean.TablayoutTitle;
 import com.happybaby.happybaby.contant.IndexUrlContants;
+import com.happybaby.happybaby.index_fragment.Index_SecondFragment;
 import com.happybaby.happybaby.index_fragment.Index_firstFragment;
 import com.happybaby.happybaby.util.OkHttpUtils;
 
@@ -26,6 +31,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 /**
@@ -79,7 +85,7 @@ public class IndexFragment extends Fragment {
                     for (int i = 0; i < title.getData().size(); i++) {
                         String tab_name = title.getData().get(i).getTab_name();
                         Strlist.add(tab_name);
-                        Index_firstFragment first = new Index_firstFragment();
+                        Index_SecondFragment first = new Index_SecondFragment();
                         //放入fragment的集合中
                         fraglist.add(first);
                     }
@@ -91,7 +97,8 @@ public class IndexFragment extends Fragment {
                             Log.e("Tag", "2222222222222222222222222");
                             //创建适配器实例
                             mVpFrag.setAdapter(adapter);
-                            //mVpFrag.setOffscreenPageLimit(title.getData().size());
+                            //加载Fragment的个数
+                            mVpFrag.setOffscreenPageLimit(title.getData().size()/2);
                         }
                     });
                 }

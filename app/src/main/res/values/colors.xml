@@ -10,7 +10,10 @@
     <color name="colorBlack">#000000</color>
 
     <color name="colorGray">#77000000</color>
-    <color name="colorLinkWhite">#bbffffff</color>
+    <color name="colorLinkWhite">#ecffffff</color>
     <color name="colorLinkGray">#22000000</color>
     <color name="colorTranGray">#50FFFFFF</color>
+    <color name="l_5new_red">#ffff3366</color>
+    <color name="background_user">#F2F2F2</color><!--主色 按住蓝 -->
+    <color name="blue_touch_user">#B3B3B3</color><!--主色 按住蓝 -->
 </resources>

@@ -1,13 +1,111 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.happybaby.happybaby.index_fragment.Index_SecondFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.jude.rollviewpager.RollPagerView
+                android:id="@+id/vp_zhidemai"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:rollviewpager_play_delay="3000">
+
+            </com.jude.rollviewpager.RollPagerView>
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_new1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_new1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="HOT"
+                        android:textColor="@color/colorAccent" />
+
+                    <ImageView
+                        android:id="@+id/iv_new1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_new1"
+                        android:layout_toLeftOf="@+id/tv_new1"
+                        android:src="@drawable/raider_new_on" />
+
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorAccent" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_hot1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_hot1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_hot1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toLeftOf="@+id/tv_hot1"
+                        android:src="@drawable/raider_hot_off" />
+
+                    <TextView
+                        android:id="@+id/tv_hot1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="NEW"
+
+                        android:textColor="@color/colorBlack" />
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@null" />
+                </RelativeLayout>
+
+            </RadioGroup>
+
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.jcodecraeer.xrecyclerview.XRecyclerView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <!--大广告的布局-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,25 +10,27 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/iv_bigads"
-            android:layout_margin="10dp"/>
+            />
         <RelativeLayout
-            android:layout_centerInParent="true"
+            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
             <!--白色中间部分-->
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp"
+                android:background="@color/colorLinkWhite"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:background="@drawable/shape_black_kuang"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#66ffffff"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_bigtitle"
-                    android:textSize="19sp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
                     android:layout_centerHorizontal="true"
                     android:text="12323112" />
 
@@ -46,9 +49,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="123"
+                    android:textColor="@color/colorBlack"
                     android:id="@+id/tv_smalltitle"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15sp"/>
+                    android:textSize="11sp"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -59,7 +63,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="none">
         <LinearLayout
-            android:id="@+id/id_gallery"
+            android:id="@+id/ll_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

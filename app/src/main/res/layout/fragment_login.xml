@@ -1,0 +1,177 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:background="@color/background_user"
+    >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:background="@color/background_user">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_wihte_frame">
+
+
+            <EditText
+                android:id="@+id/phonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+
+                android:background="@drawable/transparent"
+                android:ems="19"
+                android:hint="请输入您的手机号"
+                android:inputType="phone"
+                android:padding="1dp"
+                android:textSize="12sp">
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/del_phonenumber"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/text_del"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/background_user">
+
+        <RelativeLayout
+            android:layout_width="255dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_wihte_frame">
+
+
+            <EditText
+
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+
+                android:background="@drawable/transparent"
+                android:ems="19"
+                android:hint="请输入验证码"
+                android:inputType="textPassword"
+                android:padding="1dp"
+                android:textSize="12sp">
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/del_password"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/text_del"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_yanzhengma"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/yanzhengma_btn_selecter"
+            android:padding="1dp"
+            android:text="发送验证码"
+
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginTop="20dp"
+        android:text="收不到验证码？使用 "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:text="免费语音获取"
+        android:textColor="#ffdb2e63"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_below="@+id/textView7"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_selector"
+        android:padding="1dp"
+        android:text="登录"
+        android:textColor="@color/colorWhite"
+        android:textSize="21sp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutaotu"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:padding="1dp"></RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="" />
+
+
+</RelativeLayout>

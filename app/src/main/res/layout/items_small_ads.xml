@@ -1,30 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <!--小广告的布局-->
-    <ImageView
-        android:layout_width="wrap_content"
+    <!--小广告横滑的布局-->
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/iv_smallads"/>
+        >
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/iv_smallads_hot"
+            android:src="@mipmap/ic_launcher"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:scaleType="fitXY"
+            android:id="@+id/iv_smallads"
+            android:src="@mipmap/ic_launcher"/>
+
+
+
+    </RelativeLayout>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_title"
+        android:textSize="14sp"
+        android:textColor="@color/colorBlack"
         android:gravity="center_horizontal"
         />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:id="@+id/tv_scripe"
+        android:maxLength="8"
         android:singleLine="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
         android:gravity="center_horizontal"
         />
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_money"
-        android:gravity="center_horizontal"
-        android:textColor="@color/colorAccent"/>
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="¥"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_money"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
+
 </LinearLayout>

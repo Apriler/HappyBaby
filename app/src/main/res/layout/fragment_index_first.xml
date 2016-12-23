@@ -23,8 +23,11 @@
                 <com.happybaby.happybaby.util.ChildViewPager
                     android:id="@+id/vp_ads"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    />
                 <!-- 小圆点-->
                 <com.happybaby.happybaby.viewpagerwidget.FlowIndicator
                     android:id="@+id/flowindicator"
@@ -41,6 +44,8 @@
             </RelativeLayout>
             <!--                hot通知                      -->
             <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/ll_1"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -73,11 +78,15 @@
             </LinearLayout>
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLinkGray" />
             <!--   功能入口模块   -->
             <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/ll_item_btn"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -122,7 +131,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@color/colorLinkGray" />
 
             <TextView
@@ -137,6 +147,8 @@
 
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginBottom="10dp"
@@ -144,6 +156,8 @@
 
 
             <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:layout_width="match_parent"
@@ -166,7 +180,7 @@
                     android:orientation="vertical">
                     <include layout="@layout/item_index_black_text"
                         android:id="@+id/include1"
-                        android:layout_height="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_width="match_parent"/>
                     <include layout="@layout/item_index_black_text"
@@ -182,7 +196,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@color/colorLinkGray" />
 
             <TextView
@@ -197,6 +212,8 @@
 
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginBottom="10dp"
@@ -205,19 +222,29 @@
             <!--   超级导购   -->
 
             <com.jude.rollviewpager.RollPagerView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/vp_chaojidaogou"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                app:rollviewpager_play_delay="3000"/>
+                app:rollviewpager_play_delay="3000">
+
+
+            </com.jude.rollviewpager.RollPagerView>
 
             <!--   好物推荐   -->
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/colorLinkGray" />
 
             <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -228,8 +255,9 @@
                     android:gravity="center_vertical"
                     android:text="专场列表 "
                     android:id="@+id/tv_day"
+                    android:layout_marginRight="5dp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="20sp" />
+                    android:textSize="25sp" />
                 <LinearLayout
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -257,65 +285,84 @@
 
             </LinearLayout>
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-
+                android:layout_marginBottom="5dp"
                 android:background="@color/colorLinkGray" />
-            
+
             <ImageView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/iv_goodthings"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:scaleType="fitXY"/>
 
 
             <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/tv_goodthings_title"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorBlack"
                 android:text="123"
-                android:textSize="25sp"/>
+                android:textSize="18sp"/>
             <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/tv_goodthings_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="123"
-                android:textSize="18sp"/>
-            
-            
-            
-            
-            
-            
-            
-
+                android:textSize="13sp"/>
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/colorLinkGray" />
+                android:background="@drawable/item_xuxian" />
+
+            <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/iv_goodthings_touxiang"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_goodthings_name"/>
 
 
-
-
-
-
+            </LinearLayout>
 
 
 
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-
                 android:background="@color/colorLinkGray" />
 
             <TextView
+
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@mipmap/icon_add_biaoqian_white"
                 android:gravity="center_vertical"
@@ -325,14 +372,18 @@
 
 
             <View
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorLinkGray" />
 
             <android.support.v7.widget.RecyclerView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="15dp"
-                android:id="@+id/recyclerview"
+                android:id="@+id/recyclerview_shouye"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
