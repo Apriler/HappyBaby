@@ -2,26 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.happybaby.happybaby.shopping_fragment.ShoppingFragment">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_height="40dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="购物车"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/colorBlack"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/edit_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
             android:textSize="16sp"
             android:textColor="@color/colorBlack"
             android:clickable="true"
@@ -57,8 +59,15 @@
             android:background="@drawable/place_view"
             android:layout_marginTop="40dp"
             android:gravity="center"/>
-
     </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/treasure_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,27 +75,87 @@
         android:background="@color/colorTabBg"/>
 
     <RelativeLayout
+        android:id="@+id/all_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_gravity="bottom">
-        <Button
-            android:layout_width="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+        <CheckBox
+            android:id="@+id/checkbox_all"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="全选"
             android:layout_marginLeft="5dp"
-            android:onClick="radioAlertClick"
+            android:layout_centerVertical="true"
+            style="@style/custom_checkbox"
             android:background="@color/colorWhite"/>
 
         <Button
+            android:id="@+id/delete_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="删除"
+            android:layout_marginRight="5dp"
             android:background="@color/colorAccent"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/command_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorWhite"
+        android:visibility="visible">
+        <CheckBox
+            android:id="@+id/checkbox_command"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            style="@style/custom_checkbox"
+            android:background="@color/colorWhite"/>
 
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总计:¥0"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/checkbox_command"
+            android:layout_marginLeft="5dp"/>
 
+        <TextView
+            android:id="@+id/money_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品金额:¥0"
+            android:layout_toRightOf="@id/checkbox_command"
+            android:layout_below="@id/checkbox_command"
+            android:layout_marginLeft="5dp"/>
 
+        <TextView
+            android:id="@+id/privilege_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优惠:¥0"
+            android:layout_toRightOf="@id/money_amount"
+            android:layout_below="@id/checkbox_command"
+            android:layout_marginLeft="10dp"/>
+
+        <Button
+            android:id="@+id/clearing_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="去结算(0)"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorAccent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
 </FrameLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <CheckBox
+        android:id="@+id/checkbox_shipments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/custom_checkbox"
+        android:text="宝贝格子负责发货"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorWhite"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorLinkGray"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

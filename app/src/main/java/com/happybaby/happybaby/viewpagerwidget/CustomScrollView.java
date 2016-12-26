@@ -20,9 +20,9 @@ public class CustomScrollView extends ScrollView{
 		super(context, attrs);
 	}
 
-	@Override  
-	protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {  
-        return 0;  
+	@Override
+	protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
+        return 0;
     }
 
 	private ISmartScrollChangedListener mSmartScrollChangedListener;

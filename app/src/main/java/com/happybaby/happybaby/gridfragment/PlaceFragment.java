@@ -38,20 +38,17 @@ import com.happybaby.happybaby.bean.PlaceBean;
 import com.happybaby.happybaby.contant.GridUrlContants;
 import com.happybaby.happybaby.task.GridDownLoadTask;
 import com.happybaby.happybaby.util.OkHttpUtils;
+import com.happybaby.happybaby.viewpagerwidget.CustomScrollView;
+import com.happybaby.happybaby.viewpagerwidget.MyScrollview;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -67,7 +64,6 @@ public class PlaceFragment extends Fragment  {
     private RecyclerView pullDownRv;
     private List<GridBean.DataBeanX.DataBean.ListBean> themeList;  //热门图片网址
     private LayoutInflater mInflater;  //布局解析
-    private ViewPager mGridVp;    //热门图片ViewPager
     private LinearLayout mIdGallery;  //热门的图片和文言布局
     private List<GridBean.DataBeanX.DataBean.ListBean> totalList;//全球达人模块
     private LinearLayout mNickGallery;  //全球达人的图片和文言布局
@@ -77,12 +73,16 @@ public class PlaceFragment extends Fragment  {
     private DataAdapter dataAdapter;//热门话题适配器
     private List<PlaceBean.DataBean.ListBean> placeList; //下拉列表模块
     private PlaceCommentAdapter placeCommentAdapter;  //下拉列表模块适配器
-    private XRecyclerView downRv;  //下拉模块RecyclerView
+    private RecyclerView downRv;  //下拉模块RecyclerView
     private int page=1;      //设定加载第几页
     private Retrofit retrofit;  //Retrofit请求
     private PlaceService placeService;  //服务
     private List<PlaceBean.DataBean.ListBean> lists;  //数据源集合
 
+    //底部加载更多视图
+    private LinearLayout loadMoreLayout;
+    //外层自定义ScrollView
+    private MyScrollview mainScrollView;
 
 
     @Override
@@ -94,8 +94,70 @@ public class PlaceFragment extends Fragment  {
         initData();
         initRetrofit();
         initPlaceBean();
+        mainScrollView.setOnScrollToBottomLintener(new MyScrollview.OnScrollToBottomListener() {
+            @Override
+            public void onScrollBottomListener(boolean isBottom) {
+                // TODO Auto-generated method stub
+                Log.e("Tag", isBottom + "--------------isBottom");
+                if(isBottom){
+                    initmore();
+                }
+            }
+        });
         return rootView;
     }
+
+    private void initmore() {
+
+//        mainScrollView.setScanScrollChangedListener(new CustomScrollView.ISmartScrollChangedListener() {
+//            @Override
+//            public void onScrolledToBottom() {
+//        if (loadMoreLayout.getVisibility() == View.GONE) {
+//            loadMoreLayout.setVisibility(View.VISIBLE);
+            placeService.getPlaceString(page)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<PlaceBean>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+
+                        @Override
+                        public void onNext(final PlaceBean placeBean) {
+                                Log.e("Tag","current:"+Thread.currentThread());
+                                loadMoreLayout.setVisibility(View.GONE);
+                                //获取集合
+                                Log.e("Tag", "++++++++++++++"+page);
+                                List<PlaceBean.DataBean.ListBean> list = placeBean.getData().getList();
+                                page++;
+                                lists.addAll(list);
+                                lists.notify();
+                                //String s = String.format(GridUrlContants.GRID_CHAT_BASE,page);
+                                placeCommentAdapter.notifyDataSetChanged();
+
+
+                        }
+                    });
+//                    Log.e("Tag", "--------------->  onScrolledToBottom");
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolledToTop() {
+//                Log.e("Tag", "--------------->  onScrolledToTop");
+//            }
+//
+//            @Override
+//            public void onScrolled() {
+//                Log.e("Tag", "--------------->  onScrolled");
+//
+//            }
+//        });
+        }
 
 
 
@@ -118,39 +180,13 @@ public class PlaceFragment extends Fragment  {
                     @Override
                     public void onNext(final PlaceBean placeBean) {
                         //获取集合
-                        Log.e("Tag","++++++++++++++");
-                        lists = placeBean.getData().getList();
 
+                        lists = placeBean.getData().getList();
                         placeCommentAdapter= new PlaceCommentAdapter(getContext(), lists);  //实例化适配器
                         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-
                         downRv.setLayoutManager(mLinearLayoutManager);
                         downRv.setAdapter(placeCommentAdapter);
-                        downRv.setPullRefreshEnabled(true);
-                        downRv.setLoadingMoreEnabled(true);
-                        downRv.setLoadingMoreProgressStyle(ProgressStyle.BallGridBeat);
-                        downRv.setLoadingListener(new XRecyclerView.LoadingListener() {
-                            @Override
-                            public void onRefresh() {
-                                new Handler().postDelayed(new Runnable(){
-                                    public void run() {
-                                        page++;
-                                        List<PlaceBean.DataBean.ListBean> list1 = placeBean.getData().getList();
-                                        lists.addAll(list1);
-                                        downRv.refreshComplete();
-                                        placeCommentAdapter.notifyDataSetChanged();
-
-                                        Log.e("Tag", "!!!!!!!!!!!!!!!!!!!!!!>");
-                                    }
-                                }, 1000);
-                            }
-
-                            @Override
-                            public void onLoadMore() {
-                                Log.e("Tag", "---------------->");
-
-                            }
-                        });
+                        page++;
                     }
                 });
 
@@ -179,16 +215,15 @@ public class PlaceFragment extends Fragment  {
 
     //初始化视图
     private void initView(View rootView) {
-        mGridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         mIdGallery = (LinearLayout) rootView.findViewById(R.id.id_gallery);
         mNickGallery= (LinearLayout) rootView.findViewById(R.id.nick_gallery);
-//        mTopicGallery= (GridLayout) rootView.findViewById(R.id.topic_gallery);
         topicRv= (RecyclerView) rootView.findViewById(R.id.topic_recycler);
         gridVp = (ViewPager) rootView.findViewById(R.id.grid_vp);
         views = new ArrayList<>();  //实例化轮播图集合
         pullDownRv= (RecyclerView) rootView.findViewById(R.id.pull_down_rv); //下拉列表模块recyclerView
-        downRv= (XRecyclerView) rootView.findViewById(R.id.down_rv);
+        downRv= (RecyclerView) rootView.findViewById(R.id.down_rv);
         //打开异步下载
+        //downRv.setPullRefreshEnabled(false);
         downloadExecutor = Executors.newFixedThreadPool(10);
         GridDownLoadTask task = new GridDownLoadTask(GridUrlContants.GRID_BASE);
         task.setOnGridLoadListener(new GridDownLoadTask.OnGridLoadListener() {
@@ -275,11 +310,14 @@ public class PlaceFragment extends Fragment  {
             }
         });
 
+        //底部加载更多
+        loadMoreLayout = (LinearLayout) rootView.findViewById(R.id.loadMore_layout);
+
+        //外层ScrollView
+        mainScrollView = (MyScrollview)rootView.findViewById(R.id.fragment_place);
+
 
     }
-
-
-
 
     /**
      * 画圆角图片

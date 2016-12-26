@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.happybaby.happybaby.R;
@@ -18,6 +19,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
     private TextView editTv;  //编辑点击
     private Boolean booleanTv=false;
+    private RelativeLayout allLayout,commandLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +33,8 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
     private void initView(View rootView) {
         editTv= (TextView) rootView.findViewById(R.id.edit_tv);
+        allLayout= (RelativeLayout) rootView.findViewById(R.id.all_layout);
+        commandLayout= (RelativeLayout) rootView.findViewById(R.id.command_layout);
         editTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,11 +42,15 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
                 if (booleanTv=!booleanTv){
                     editTv.setText("完成");
+                    commandLayout.setVisibility(View.GONE);
+                    allLayout.setVisibility(View.VISIBLE);
 
 
 
                 }else {
                     editTv.setText("编辑");
+                    allLayout.setVisibility(View.GONE);
+                    commandLayout.setVisibility(View.VISIBLE);
                 }
             }
         });
