@@ -112,14 +112,22 @@ public class BlankFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+         view = inflater.inflate(R.layout.fragment_blank, container, false);
 
 
-        initView(view);
-        initDate();
-        mayLikeShow();
+
 
         return view;
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if(isVisible){
+            initView(view);
+            initDate();
+            mayLikeShow();
+        }
     }
 
     private void mayLikeShow() {

@@ -22,6 +22,7 @@ import com.happybaby.happybaby.adapter.ContentAdapter;
 import com.happybaby.happybaby.bean.TablayoutTitle;
 import com.happybaby.happybaby.contant.IndexUrlContants;
 import com.happybaby.happybaby.index_fragment.Index_SecondFragment;
+import com.happybaby.happybaby.index_fragment.Index_ThirdFragment;
 import com.happybaby.happybaby.index_fragment.Index_firstFragment;
 import com.happybaby.happybaby.util.OkHttpUtils;
 
@@ -85,7 +86,7 @@ public class IndexFragment extends Fragment {
                     for (int i = 0; i < title.getData().size(); i++) {
                         String tab_name = title.getData().get(i).getTab_name();
                         Strlist.add(tab_name);
-                        Index_SecondFragment first = new Index_SecondFragment();
+                        Index_firstFragment first = new Index_firstFragment ();
                         //放入fragment的集合中
                         fraglist.add(first);
                     }

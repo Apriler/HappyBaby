@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.FragmentAdapter;
+import com.happybaby.happybaby.base.BaseFragment;
 import com.happybaby.happybaby.constant.MyConstant;
 import com.happybaby.happybaby.constant.OverseasConstant;
 import com.happybaby.happybaby.voerseasfragment.BlankFragment;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OverseasFragment extends Fragment {
+public class OverseasFragment extends BaseFragment {
 
     private FragmentAdapter adapter;
 
@@ -34,13 +35,20 @@ public class OverseasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_overseas, container, false);
-
-        initData();
-        initView(view);
+        if (view == null){
+            view = inflater.inflate(R.layout.fragment_overseas, container, false);
+        }
 
 
         return view;
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        initData();
+        initView(view);
+
     }
 
     private void initData() {
@@ -62,7 +70,7 @@ public class OverseasFragment extends Fragment {
         mViewpageOverseas = (ViewPager) view.findViewById(R.id.viewpage_overseas);
         adapter=new FragmentAdapter(getChildFragmentManager(),dates,OverseasConstant.COUNTRY_NAME);
         mViewpageOverseas.setAdapter(adapter);
-
         mTabLayoutOverseas.setupWithViewPager(mViewpageOverseas);
+        mViewpageOverseas.setOffscreenPageLimit(2);
     }
 }

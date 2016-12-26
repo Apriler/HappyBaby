@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.activity.WebviewActivity;
 import com.happybaby.happybaby.adapter.ADtextAdapter;
@@ -28,7 +29,7 @@ import com.happybaby.happybaby.util.OkHttpUtils;
 import com.happybaby.happybaby.viewpagerwidget.FlowIndicator;
 import com.jude.rollviewpager.RollPagerView;
 import com.paradoxie.autoscrolltextview.VerticalTextview;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -188,7 +189,7 @@ public class Index_firstFragment extends Fragment {
                     mTvYear.setText(ym);
 
                     //取到图片
-                    Picasso.with(getContext()).load(list8.getJSONObject(0).getString("phone_head_pic")).into(mIvGoodthings);
+                    Glide.with(getContext()).load(list8.getJSONObject(0).getString("phone_head_pic")).into(mIvGoodthings);
                     //取到标题 文本
                     String title = list8.getJSONObject(0).getString("title");
                     String introduction = list8.getJSONObject(0).getString("introduction");
@@ -198,7 +199,7 @@ public class Index_firstFragment extends Fragment {
                     //取到头像，名字
                     String nick_name = list8.getJSONObject(0).getString("nick_name");
                     mTvGoodthingsName.setText(nick_name);
-                    Picasso.with(getContext()).load(list8.getJSONObject(0).getString("avatar")).into(mIvGoodthingsTouxiang);
+                    Glide.with(getContext()).load(list8.getJSONObject(0).getString("avatar")).into(mIvGoodthingsTouxiang);
 
 
                 } catch (JSONException e) {
@@ -225,7 +226,7 @@ public class Index_firstFragment extends Fragment {
                         String videoTitle = list7.getJSONObject(i).getString("videoTitle");
                         ImageView iv = (ImageView) view.findViewById(R.id.iv_chaojidaogou);
                         TextView tv = (TextView) view.findViewById(R.id.tv_chaojidaogou);
-                        Picasso.with(getContext()).load(videoPic).into(iv);
+                        Glide.with(getContext()).load(videoPic).into(iv);
                         tv.setText(videoTitle);
                         imgs.add(view);
                     }
@@ -254,7 +255,7 @@ public class Index_firstFragment extends Fragment {
                     String ad_pic = list4.getJSONObject(2).getString("ad_pic");
                     ImageView iv_back1 = (ImageView) item1.findViewById(R.id.iv_back);
                     iv_back1.setScaleType(ImageView.ScaleType.FIT_XY);
-                    Picasso.with(getContext()).load(ad_pic).into(iv_back1);
+                    Glide.with(getContext()).load(ad_pic).into(iv_back1);
                     //标题
                     String ad_word = list4.getJSONObject(2).getString("ad_word");
                     TextView tv_bigtitle = (TextView) item1.findViewById(R.id.tv_bigtitle);
@@ -271,7 +272,7 @@ public class Index_firstFragment extends Fragment {
                     String ad_pic2 = list4.getJSONObject(1).getString("ad_pic");
                     ImageView iv_back2 = (ImageView) item2.findViewById(R.id.iv_back);
 
-                    Picasso.with(getContext()).load(ad_pic2).into(iv_back2);
+                    Glide.with(getContext()).load(ad_pic2).into(iv_back2);
                     //标题
                     String ad_word2 = list4.getJSONObject(1).getString("ad_word");
                     TextView tv_bigtitle2 = (TextView) item2.findViewById(R.id.tv_bigtitle);
@@ -283,7 +284,7 @@ public class Index_firstFragment extends Fragment {
                     String ad_pic3 = list4.getJSONObject(3).getString("ad_pic");
                     ImageView iv_back3 = (ImageView) item3.findViewById(R.id.iv_back);
 
-                    Picasso.with(getContext()).load(ad_pic3).into(iv_back3);
+                    Glide.with(getContext()).load(ad_pic3).into(iv_back3);
                     //标题
                     String ad_word3 = list4.getJSONObject(3).getString("ad_word");
                     TextView tv_bigtitle3 = (TextView) item3.findViewById(R.id.tv_bigtitle);
@@ -315,19 +316,19 @@ public class Index_firstFragment extends Fragment {
                     final JSONArray list2 = indata2.getJSONArray("list");
                     //加载图片到每个Imageview上去
                     String pic1 = list2.getJSONObject(0).getString("pic");
-                    Picasso.with(getContext()).load(pic1).into(mIvItem1);
+                    Glide.with(getContext()).load(pic1).into(mIvItem1);
                     String pic2 = list2.getJSONObject(1).getString("pic");
-                    Picasso.with(getContext()).load(pic2).into(mIvItem2);
+                    Glide.with(getContext()).load(pic2).into(mIvItem2);
                     String pic3 = list2.getJSONObject(2).getString("pic");
-                    Picasso.with(getContext()).load(pic3).into(mIvItem3);
+                    Glide.with(getContext()).load(pic3).into(mIvItem3);
                     String pic4 = list2.getJSONObject(3).getString("pic");
-                    Picasso.with(getContext()).load(pic4).into(mIvItem4);
+                    Glide.with(getContext()).load(pic4).into(mIvItem4);
                     String pic5 = list2.getJSONObject(4).getString("pic");
-                    Picasso.with(getContext()).load(pic5).into(mIvItem5);
+                    Glide.with(getContext()).load(pic5).into(mIvItem5);
 //                    for(int i= 0 ; i<list2.length(); i ++){
 //                        ImageView iv=  new ImageView(getContext());
 //                        String pic1 = list2.getJSONObject(i).getString("pic");
-//                        Picasso.with(getContext()).load(pic1).into(iv);
+//                        Glide.with(getContext()).load(pic1).into(iv);
 //                        mLlItemBtn.addView(iv);
 //                    }
                 } catch (JSONException e) {
@@ -349,7 +350,7 @@ public class Index_firstFragment extends Fragment {
                 try {
                     module_icon = data1.getString("module_icon");
                     Log.e("data", "module_icon+++++++++++++" + module_icon);
-                    Picasso.with(getContext()).load(module_icon).into(mIvHot);//hot图标
+                    Glide.with(getContext()).load(module_icon).into(mIvHot);//hot图标
                     final JSONArray list1 = indata1.getJSONArray("list");
                     ArrayList<String> titleList = new ArrayList<>();
                     for (int i = 0; i < list1.length(); i++) {
@@ -406,7 +407,7 @@ public class Index_firstFragment extends Fragment {
                             //加载轮播图
                             View textView = LayoutInflater.from(getContext()).inflate(R.layout.item_index_text, null, false);
                             ImageView iv_back = (ImageView) textView.findViewById(R.id.iv_back);//背景
-                            Picasso.with(getContext()).load(ad_pic).into(iv_back);
+                            Glide.with(getContext()).load(ad_pic).into(iv_back);
 
                             TextView tv_bigtitle = (TextView) textView.findViewById(R.id.tv_bigtitle);//大标题
                             TextView tv_smalltitle = (TextView) textView.findViewById(R.id.tv_smalltitle);//小标题
