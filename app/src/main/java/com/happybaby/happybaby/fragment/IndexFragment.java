@@ -76,7 +76,7 @@ public class IndexFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {//成功
 
-                Log.e("Tag", "!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 
                 String string = response.body().string();//返回json
                 if (!TextUtils.isEmpty(string)) {
@@ -86,9 +86,18 @@ public class IndexFragment extends Fragment {
                     for (int i = 0; i < title.getData().size(); i++) {
                         String tab_name = title.getData().get(i).getTab_name();
                         Strlist.add(tab_name);
-                        Index_firstFragment first = new Index_firstFragment ();
-                        //放入fragment的集合中
-                        fraglist.add(first);
+
+                    }
+                    Index_firstFragment first = new Index_firstFragment ();
+                    //放入fragment的集合中
+                    fraglist.add(first);
+                    Index_SecondFragment second= new Index_SecondFragment();
+                    fraglist.add(second);
+
+                    for (int i = 2; i < title.getData().size(); i++) {
+                        Index_ThirdFragment third = new Index_ThirdFragment();
+                        fraglist.add(third);
+
                     }
 
                     getActivity().runOnUiThread(new Runnable() {

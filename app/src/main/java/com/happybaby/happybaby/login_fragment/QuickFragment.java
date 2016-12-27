@@ -15,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.happybaby.happybaby.R;
+import com.happybaby.happybaby.activity.BaseApplication;
 import com.happybaby.happybaby.activity.LoginActivity;
 import com.happybaby.happybaby.activity.RegisterActivity;
 import com.happybaby.happybaby.bean.User;
+import com.happybaby.happybaby.fragment.MineFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,6 +39,7 @@ public class QuickFragment extends Fragment implements View.OnClickListener {
     private EditText mPassword;
     private Button mLoginButton;
     private TextView mTextViewRegister;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,9 +100,10 @@ public class QuickFragment extends Fragment implements View.OnClickListener {
             public void done(User user, BmobException e) {
                 if (user != null) {
                     Toast.makeText(getContext(), "用户登陆成功", Toast.LENGTH_SHORT).show();
+                    MineFragment.flag=true;
                     getActivity().finish();//返回用户界面
-                    //TODO eventbus传值
-                    EventBus.getDefault().post(user);//把该用户的数据返回
+                    BaseApplication.setUser(user);
+//
                 } else {
                     Toast.makeText(getContext(), "账号或密码错误", Toast.LENGTH_SHORT).show();
                 }
@@ -108,22 +112,5 @@ public class QuickFragment extends Fragment implements View.OnClickListener {
 
 
     }
-
-//    @OnClick({R.id.textView_register, R.id.textView_psw, R.id.imageview_qq, R.id.imageview_weibo, R.id.imageview_weixin})
-//    public void onClick(View view) {
-//        Intent intent = new Intent();
-//        switch (view.getId()) {
-//            case R.id.textView_register:
-//                intent.setClass(mContext, RegisterActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.textView_psw:
-//                intent.setClass(mContext, ForgetPswActivity.class);
-//                startActivity(intent);
-//                break;
-//
-//        }
-//    }
-
 
 }

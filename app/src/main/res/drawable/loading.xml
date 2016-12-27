@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <rotate android:fromDegrees="0" android:interpolator="@android:anim/linear_interpolator" android:pivotX="50%" android:pivotY="50%" android:toDegrees="360">
+            <bitmap android:src="@drawable/hj_ui_login_loading" />
+        </rotate>
+    </item>
+
+</selector>

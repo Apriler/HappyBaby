@@ -1,5 +1,8 @@
 package com.happybaby.happybaby.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
@@ -7,7 +10,7 @@ import cn.bmob.v3.BmobUser;
  * Created by Administrator on 2016/12/21.
  */
 
-public class User extends BmobUser {
+public class User extends BmobUser implements Parcelable{
 
 
     private String phone;
@@ -34,5 +37,15 @@ public class User extends BmobUser {
                 "phone='" + phone + '\'' +
                 ", key='" + key + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

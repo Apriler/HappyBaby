@@ -41,7 +41,6 @@ public class LoginActivity extends BaseActivity {
         Strlist.add("密码登录");
         fraglist.add(new LoginFragment());
         fraglist.add(new QuickFragment());
-
         ContentAdapter adapter= new ContentAdapter(getSupportFragmentManager(),fraglist,Strlist);
         mVpLogin.setAdapter(adapter);
         mTablayyoutLogin.setupWithViewPager(mVpLogin);

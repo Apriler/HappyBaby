@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+    <TextView
+        android:id="@+id/tv_fromgallery"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="从照片库中选取"
+        android:textColor="@color/colorBlack"
+        android:textSize="19sp"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLinkGray"/>
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tv_fromnew"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="拍摄新照片"
+        android:textSize="19sp"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLinkGray"/>
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tv_cancel_back"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="取消"
+        android:textSize="19sp"
+        android:gravity="center"/>
+
+</LinearLayout>
