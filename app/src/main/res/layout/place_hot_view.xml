@@ -12,11 +12,12 @@
         android:padding="5dp" >
 
         <ImageView
+            android:src="@mipmap/ic_launcher"
             android:id="@+id/pic_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/name_tv"

@@ -28,6 +28,7 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
         public final static Property ImageUrl = new Property(1, String.class, "imageUrl", false, "IMAGE_URL");
         public final static Property Price = new Property(2, double.class, "price", false, "PRICE");
         public final static Property Name = new Property(3, String.class, "name", false, "NAME");
+        public final static Property Num = new Property(4, int.class, "num", false, "NUM");
     }
 
 
@@ -46,7 +47,8 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
                 "\"IMAGE_URL\" TEXT," + // 1: imageUrl
                 "\"PRICE\" REAL NOT NULL ," + // 2: price
-                "\"NAME\" TEXT);"); // 3: name
+                "\"NAME\" TEXT," + // 3: name
+                "\"NUM\" INTEGER NOT NULL );"); // 4: num
     }
 
     /** Drops the underlying database table. */
@@ -70,6 +72,7 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
         if (name != null) {
             stmt.bindString(4, name);
         }
+        stmt.bindLong(5, entity.getNum());
     }
 
     @Override
@@ -87,6 +90,7 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
         if (name != null) {
             stmt.bindString(4, name);
         }
+        stmt.bindLong(5, entity.getNum());
     }
 
     @Override
@@ -100,7 +104,8 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
             cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // imageUrl
             cursor.getDouble(offset + 2), // price
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // name
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // name
+            cursor.getInt(offset + 4) // num
         );
         return entity;
     }
@@ -111,6 +116,7 @@ public class ShoppingCartBeanDao extends AbstractDao<ShoppingCartBean, Long> {
         entity.setImageUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPrice(cursor.getDouble(offset + 2));
         entity.setName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNum(cursor.getInt(offset + 4));
      }
     
     @Override

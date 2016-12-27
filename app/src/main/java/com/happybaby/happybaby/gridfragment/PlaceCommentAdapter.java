@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.GridAdapter;
 import com.happybaby.happybaby.bean.GridBean;
@@ -79,7 +80,7 @@ public class PlaceCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.likenessTv.setText(data.getProduct_count()+"件相关商品"); //相似产品
         viewHolder.likeNumber.setText(data.getZan_num()); //点赞数量，没有赞时，显示为“赞”
         viewHolder.commentTv.setText(data.getComment_num());  //评论数量
-        Picasso.with(context).load(data.getUser_info().getAvatar()).into(viewHolder.ivHead);//用户头像
+        Glide.with(context).load(data.getUser_info().getAvatar()).into(viewHolder.ivHead);//用户头像
         viewHolder.likeClick.setImageResource(data.getIs_zan());  //赞的动画效果
 
 //
@@ -94,7 +95,7 @@ public class PlaceCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         for (int i = 0 ; i <data.getImage_info().size();i++){
             String image_url = data.getImage_info().get(i).getImage_url();
             ImageView iv = new ImageView(context);
-            Picasso.with(context).load(image_url).into(iv);
+            Glide.with(context).load(image_url).into(iv);
             imageViews.add(iv);
         }
         viewHolder.viewPager.setAdapter(new GridAdapter(imageViews));

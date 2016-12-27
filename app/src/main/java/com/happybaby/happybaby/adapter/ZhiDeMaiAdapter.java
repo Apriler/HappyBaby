@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.happybaby.happybaby.R;
@@ -43,8 +44,8 @@ public class ZhiDeMaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         holder.mTvGoodthingsName.setText(list.get(position).getNick_name());
         holder.mTvGoodthingsText.setText( list.get(position).getIntroduction());
         holder.mTvGoodthingsTitle.setText(list.get(position).getTitle());
-        Picasso.with(context).load(list.get(position).getAvatar()).into(holder.mIvGoodthingsTouxiang);
-        Picasso.with(context).load(list.get(position).getPhone_head_pic()).into(holder.mIvGoodthings);
+        Glide.with(context).load(list.get(position).getAvatar()).into(holder.mIvGoodthingsTouxiang);
+        Glide.with(context).load(list.get(position).getPhone_head_pic()).into(holder.mIvGoodthings);
     }
 
     @Override

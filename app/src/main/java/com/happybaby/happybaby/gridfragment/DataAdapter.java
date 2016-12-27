@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.GridBean;
 import com.squareup.picasso.Picasso;
@@ -71,7 +72,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         //获得指定位置数据
         GridBean.DataBeanX.DataBean.ListBean data = datas.get(position);
         //绑定数据
-        Picasso.with(context).load(data.getTopic_image()).into(viewHolder.itemIv);
+        Glide.with(context).load(data.getTopic_image()).into(viewHolder.itemIv);
         viewHolder.itemTv.setText(data.getTopic_name());
         viewHolder.itemTv2.setText(data.getTopic_join());
 

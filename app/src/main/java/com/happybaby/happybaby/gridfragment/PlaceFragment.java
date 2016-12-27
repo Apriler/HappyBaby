@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.GridAdapter;
@@ -42,7 +43,7 @@ import com.happybaby.happybaby.viewpagerwidget.CustomScrollView;
 import com.happybaby.happybaby.viewpagerwidget.MyScrollview;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,7 +240,7 @@ public class PlaceFragment extends Fragment  {
                     String ad_pic = list.get(i).getAd_pic();
                     ImageView view = new ImageView(getContext());
                     view.setScaleType(ImageView.ScaleType.FIT_XY);
-                    Picasso.with(getContext()).load(ad_pic).into(view);
+                    Glide.with(getContext()).load(ad_pic).into(view);
                     views.add(view);
                 }
                 GridAdapter gridAdapter = new GridAdapter(views);
@@ -252,9 +253,10 @@ public class PlaceFragment extends Fragment  {
                     View itemForScrollView = mInflater.inflate(R.layout.place_hot_view, mIdGallery, false);
                     //滑动布局的两个组件
                     ImageView mIvItem = (ImageView) itemForScrollView.findViewById(R.id.pic_iv);
+                    mIvItem.setScaleType(ImageView.ScaleType.FIT_XY);
                     TextView mTvItem = (TextView) itemForScrollView.findViewById(R.id.name_tv);
                     //循环添加数据
-                    Picasso.with(getContext()).load(themeList.get(i).getTag_image()).into(mIvItem);
+                    Glide.with(getContext()).load(themeList.get(i).getTag_image()).into(mIvItem);
                     mTvItem.setText(themeList.get(i).getTag_name());
                     mIdGallery.addView(itemForScrollView);
                 }
@@ -268,7 +270,7 @@ public class PlaceFragment extends Fragment  {
 
                     TextView mTvItem = (TextView) itemForScrollView.findViewById(R.id.nick_name_tv);
                     //循环添加数据
-                    Picasso.with(getContext()).load(totalList.get(i).getBig_avatar()).into(mIvItem);
+                    Glide.with(getContext()).load(totalList.get(i).getBig_avatar()).into(mIvItem);
                     mTvItem.setText(totalList.get(i).getNick_name());
                     mNickGallery.addView(itemForScrollView);
 
