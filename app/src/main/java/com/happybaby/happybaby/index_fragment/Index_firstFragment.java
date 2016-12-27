@@ -164,7 +164,7 @@ public class Index_firstFragment extends Fragment {
                     mRecyclerview.setAdapter(adapter);
                     //设置布局方向
                     mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
+                    mRecyclerview.setNestedScrollingEnabled(false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
 
+
     <ImageView
         android:id="@+id/ivSetting"
         android:layout_width="@dimen/title_height"
@@ -68,7 +69,10 @@
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/loading"
         android:indeterminateDuration="1500" />
-
+    <in.srain.cube.views.ptr.PtrFrameLayout
+        android:id="@+id/ptrframelayout_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ScrollView
         android:layout_marginTop="40dp"
         android:id="@+id/person_true_content"
@@ -175,6 +179,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginLeft="40dp"
                         android:src="@mipmap/icon_head_lerror"/>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -201,6 +206,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+
                     <ImageView
                         android:layout_width="10dp"
                         android:layout_height="match_parent"
@@ -955,6 +961,6 @@
 
 
     </ScrollView>
-
+    </in.srain.cube.views.ptr.PtrFrameLayout>
 
 </RelativeLayout>

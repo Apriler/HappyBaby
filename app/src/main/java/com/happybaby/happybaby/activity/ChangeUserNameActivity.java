@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
+import com.happybaby.happybaby.bean.User;
 import com.happybaby.happybaby.util.BitmapUtils;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +30,7 @@ import java.io.File;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 
@@ -36,7 +39,7 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
 
     private Toolbar mToolbarChange;
     private ImageView mIvChangeTouxiang;
-    private TextView mIvChangeName;
+    private TextView mTvChangeName;
     private TextView mIvChangeDiqu;
     private TextView mIvChangeQianming;
     private RelativeLayout mActivityChangeUserName;
@@ -45,25 +48,44 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
     private RelativeLayout mRlChange3;// 切换地区
     private RelativeLayout mRlChange4;// 切换签名
     private PopupWindow pp;
-    private TextView tv_fromgallery;
-    private TextView tv_fromnew;
-    private TextView tv_cancel_back;
+    private TextView tv_fromgallery;//从相册取
+    private TextView tv_fromnew;//拍新照片
+    private TextView tv_cancel_back;//取消
     //系统拍照图片地址
     public static String file_path;
     public static final int REQUEST_CODE = 100;
     public static final int REQUEST_GALLERY_CODE = 101;
     public static final int REQUEST_CROP_CODE = 102;
+    public static final int REQUEST_NAME_CODE = 103;
+    public static final int REQUEST_QIANMING_CODE = 104;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_user_name);
         initView();
+        initData();
         inittoolbar();
         initpopupwindow();//弹出框初始化
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             file_path = Environment.getExternalStorageDirectory() + File.separator + "head.jpg";
         }
+    }
+
+    private void initData() {
+        User  user = User.getCurrentUser(User.class);
+        if(user.getName() == null){
+            mTvChangeName.setText(user.getUsername());//取到用户名
+        }else {
+            mTvChangeName.setText(user.getName());//取到用户名
+        }
+        Glide.with(ChangeUserNameActivity.this).load(user.getTouxiang()).override(50,50).into(mIvChangeTouxiang);//加载头像
+        if(TextUtils.isEmpty(user.getQianming())){
+            mIvChangeQianming.setText("还没有写签名噢~~");
+        }else {
+            mIvChangeQianming.setText(user.getQianming());
+        }
+
     }
 
     private void initpopupwindow() {
@@ -82,8 +104,8 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
         pp.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                WindowManager.LayoutParams params=getWindow().getAttributes();
-                params.alpha=1f;
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
                 getWindow().setAttributes(params);
 
             }
@@ -104,7 +126,7 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
     private void initView() {
         mToolbarChange = (Toolbar) findViewById(R.id.toolbar_change);
         mIvChangeTouxiang = (ImageView) findViewById(R.id.iv_change_touxiang);
-        mIvChangeName = (TextView) findViewById(R.id.iv_change_name);
+        mTvChangeName = (TextView) findViewById(R.id.tv_change_name);
         mIvChangeDiqu = (TextView) findViewById(R.id.iv_change_diqu);
         mIvChangeQianming = (TextView) findViewById(R.id.iv_change_qianming);
         mActivityChangeUserName = (RelativeLayout) findViewById(R.id.activity_change_user_name);
@@ -124,21 +146,27 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
         Intent intent = null;
         switch (view.getId()) {
             case R.id.rl_change1://头像
-                WindowManager.LayoutParams params=getWindow().getAttributes();
-                params.alpha=0.3f;
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 0.3f;
                 getWindow().setAttributes(params);
                 pp.showAtLocation(ChangeUserNameActivity.this.findViewById(R.id.activity_change_user_name), Gravity.BOTTOM, 0, 0);
                 break;
 
-//            case R.id.rl_change2://昵称
-//
-//                break;
+            case R.id.rl_change2://昵称
+                intent=new Intent();
+                intent.setClass(ChangeUserNameActivity.this,ChangeMsgActivity.class);
+                intent.putExtra("NAME",mTvChangeName.getText());
+                startActivityForResult(intent,REQUEST_NAME_CODE);
+                break;
 //            case R.id.rl_change3://地区
 //
 //                break;
-//            case R.id.rl_change4://签名
-//
-//                break;
+            case R.id.rl_change4://签名
+                intent=new Intent();
+                intent.setClass(ChangeUserNameActivity.this,ChangeQianmingActivity.class);
+                intent.putExtra("QIANMING",mIvChangeQianming.getText());
+                startActivityForResult(intent,REQUEST_QIANMING_CODE);
+                break;
 
             case R.id.tv_fromgallery://来自图库
                 intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -201,29 +229,58 @@ public class ChangeUserNameActivity extends BaseActivity implements View.OnClick
                 }
 
                 mIvChangeTouxiang.setImageBitmap(BitmapUtils.scaleBitmap(bitmap, 50, 50));
+                BitmapUtils.saveBitmap(bitmap, file_path);
                 updatatoBmob();
 
             }
-        }
+        } else if (requestCode == REQUEST_NAME_CODE) {
+            if (data != null) {
+                //获取返回的用户名，设置上
+                String newname = data.getStringExtra("NEWNAME");
+                mTvChangeName.setText(newname);
+            }
+        }else if (requestCode == REQUEST_QIANMING_CODE) {
+                if (data != null) {
+                    //获取返回的签名，设置上
+                    String newqianming = data.getStringExtra("NEWQIANMING");
+                    mIvChangeQianming.setText(newqianming);
+                }else {
+                    mIvChangeQianming.setText("还没有写签名噢~~");
+                }
+
+            }
+
     }
 
     private void updatatoBmob() {
 
         final BmobFile bmobFile = new BmobFile(new File(file_path));
+
         bmobFile.uploadblock(new UploadFileListener() {
 
             @Override
             public void done(BmobException e) {
-                if(e==null){
+                if (e == null) {
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
                     showToast("上传文件成功:" + bmobFile.getFileUrl());
-
-                }else{
+                    User newUser = new User();
+                    newUser.setTouxiang(bmobFile.getFileUrl());
+                    User bmobUser = User.getCurrentUser(User.class);
+                    newUser.update(bmobUser.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                showToast("更新用户信息成功");
+                            } else {
+                                showToast("更新用户信息失败:" + e.getMessage());
+                            }
+                        }
+                    });
+                } else {
                     showToast("上传文件失败：" + e.getMessage());
                 }
 
             }
-
             @Override
             public void onProgress(Integer value) {
                 // 返回的上传进度（百分比）

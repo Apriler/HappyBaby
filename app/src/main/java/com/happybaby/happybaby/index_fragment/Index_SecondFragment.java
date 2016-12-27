@@ -162,6 +162,7 @@ public class Index_SecondFragment extends Fragment implements View.OnClickListen
         mLine2.setOnClickListener(this);
         viewlist = new ArrayList<>();
         mRecycler.setPullRefreshEnabled(false);
+        mRecycler.setNestedScrollingEnabled(false);//滑动
     }
 
     @Override
