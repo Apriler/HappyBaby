@@ -18,9 +18,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-/**
- * Created by bodhixu on 2016/12/6.
- */
+
 
 public class OkHttpUtils {
 
