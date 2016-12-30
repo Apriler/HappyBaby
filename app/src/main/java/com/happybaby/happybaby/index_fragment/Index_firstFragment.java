@@ -96,6 +96,7 @@ public class Index_firstFragment extends Fragment {
 //            }
 //        };
 
+
         return view;
     }
 
@@ -118,8 +119,6 @@ public class Index_firstFragment extends Fragment {
 //                    Message msg = handler.obtainMessage();
 //                    msg.obj = string;
                     try {
-
-
                         JSONObject jsonObject = new JSONObject(string);
                         JSONArray dataArray = jsonObject.getJSONArray("data");
 
@@ -131,6 +130,49 @@ public class Index_firstFragment extends Fragment {
                         initData2(dataArray);
                         //解析data4秒杀专场
                         initData4(dataArray);
+//                        //解析data7超级导购
+//                        initData7(dataArray);
+//                        //解析data8超级导购
+//                        initData8(dataArray);
+//                        //解析data10专场列表
+//                        initData10(dataArray);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                //String result = (String) msg.obj;
+
+
+            }
+        });
+        okHttpUtils.doAsyncGETRequest(IndexUrlContants.INDEX_BASE_RECOMMEND, new Callback() {//开启异步GET请求
+            @Override
+            public void onFailure(Call call, IOException e) {       //失败
+//                Looper.prepare();
+//                Toast.makeText(getContext(), "下载数据失败", Toast.LENGTH_SHORT).show();
+//                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {//成功
+                String string = response.body().string();//返回json
+                if (!TextUtils.isEmpty(string)) {
+
+//                    Message msg = handler.obtainMessage();
+//                    msg.obj = string;
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
+
+//                        //解析data0轮播图
+//                        initData0(dataArray);
+//                        //解析hot的轮播公告
+//                        initData1(dataArray);
+//                        //解析data2功能入口模块
+//                        initData2(dataArray);
+//                        //解析data4秒杀专场
+//                        initData4(dataArray);
                         //解析data7超级导购
                         initData7(dataArray);
                         //解析data8超级导购
@@ -157,6 +199,7 @@ public class Index_firstFragment extends Fragment {
             @Override
             public void run() {
                 try {
+
                     final JSONArray list10 = indata10.getJSONArray("list");
                     //创建适配器
                     AdapterShouYeRecyclerview adapter = new AdapterShouYeRecyclerview(list10, getContext());
@@ -361,7 +404,7 @@ public class Index_firstFragment extends Fragment {
                     mTvAutoscrolltextview.setTextList(titleList);//加入显示内容,集合类型
                     mTvAutoscrolltextview.setText(13, 5, Color.BLACK);//设置属性,具体跟踪源码
                     mTvAutoscrolltextview.setTextStillTime(3000);//设置停留时长间隔
-                    mTvAutoscrolltextview.setAnimTime(300);//设置进入和退出的时间间隔
+                    mTvAutoscrolltextview.setAnimTime(3000);//设置进入和退出的时间间隔
                     mTvAutoscrolltextview.startAutoScroll();
                     //对单条文字的点击监听
                     mTvAutoscrolltextview.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {

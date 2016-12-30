@@ -14,7 +14,7 @@ import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.GridAdapter;
 import com.happybaby.happybaby.bean.GridBean;
 import com.happybaby.happybaby.bean.PlaceBean;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class PlaceCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         viewHolder.userNameClick.setText(data.getUser_info().getNick_name());  //用户名
 //        viewHolder.attentionClick.setText(data.getId()); //关注按钮
-        viewHolder.likenessTv.setText(data.getProduct_count()+"件相关商品"); //相似产品
+        viewHolder.likenessTv.setText(new StringBuffer().append(data.getProduct_count()).append("件相关商品")); //相似产品
         viewHolder.likeNumber.setText(data.getZan_num()); //点赞数量，没有赞时，显示为“赞”
         viewHolder.commentTv.setText(data.getComment_num());  //评论数量
         Glide.with(context).load(data.getUser_info().getAvatar()).into(viewHolder.ivHead);//用户头像

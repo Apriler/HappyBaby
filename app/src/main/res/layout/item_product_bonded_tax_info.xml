@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:background="@color/colorWhite"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/tv_bonded_tax_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp"
+        android:text="关税：个人邮寄进境物品海关依法征收进口税"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/mine_main_arrow"
+        android:layout_alignParentRight="true"/>
+
+
+</RelativeLayout>

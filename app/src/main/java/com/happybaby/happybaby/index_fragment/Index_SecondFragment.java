@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.adapter.ADtextAdapter;
 import com.happybaby.happybaby.adapter.ZhiDeMaiAdapter;
@@ -26,7 +27,7 @@ import com.happybaby.happybaby.util.HttpUtils;
 import com.happybaby.happybaby.util.OkHttpUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jude.rollviewpager.RollPagerView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class Index_SecondFragment extends Fragment implements View.OnClickListen
                             View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_chaojidaogou, null, false);
                             ImageView iv = (ImageView) view1.findViewById(R.id.iv_chaojidaogou);
                             TextView tv = (TextView) view1.findViewById(R.id.tv_chaojidaogou);
-                            Picasso.with(getContext()).load(ad_list.get(i).getAd_pic()).into(iv);
+                            Glide.with(getContext()).load(ad_list.get(i).getAd_pic()).into(iv);
                             tv.setText(ad_list.get(i).getAd_name());
                             viewlist.add(view1);
                         }

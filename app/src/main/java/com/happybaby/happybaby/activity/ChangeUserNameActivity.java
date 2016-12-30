@@ -24,7 +24,7 @@ import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.User;
 import com.happybaby.happybaby.util.BitmapUtils;
-import com.squareup.picasso.Picasso;
+
 
 import java.io.File;
 

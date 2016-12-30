@@ -16,4 +16,5 @@
     <color name="l_5new_red">#ffff3366</color>
     <color name="background_user">#F2F2F2</color><!--主色 按住蓝 -->
     <color name="blue_touch_user">#B3B3B3</color><!--主色 按住蓝 -->
+    <color name="colorYellow">#f5bb1c</color>
 </resources>

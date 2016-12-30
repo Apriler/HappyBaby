@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.ZhiDeMai2;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 

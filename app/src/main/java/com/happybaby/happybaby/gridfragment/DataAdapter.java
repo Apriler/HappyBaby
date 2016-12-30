@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.happybaby.happybaby.R;
 import com.happybaby.happybaby.bean.GridBean;
-import com.squareup.picasso.Picasso;
+
 
 import org.w3c.dom.Text;
 

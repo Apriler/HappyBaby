@@ -107,8 +107,8 @@ public class IndexFragment extends Fragment {
                             Log.e("Tag", "2222222222222222222222222");
                             //创建适配器实例
                             mVpFrag.setAdapter(adapter);
-                            //加载Fragment的个数
-                            mVpFrag.setOffscreenPageLimit(title.getData().size()/2);
+//                            //加载Fragment的个数
+//                            mVpFrag.setOffscreenPageLimit(title.getData().size()/2);
                         }
                     });
                 }

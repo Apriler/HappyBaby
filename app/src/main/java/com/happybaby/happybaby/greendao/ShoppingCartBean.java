@@ -1,4 +1,4 @@
-package com.happybaby.happybaby.bean;
+package com.happybaby.happybaby.greendao;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -59,6 +59,7 @@ public class ShoppingCartBean  {
     public void setNum(int num) {
         this.num = num;
     }
+
 
 
 }

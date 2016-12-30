@@ -71,6 +71,6 @@ public class OverseasFragment extends BaseFragment {
         adapter=new FragmentAdapter(getChildFragmentManager(),dates,OverseasConstant.COUNTRY_NAME);
         mViewpageOverseas.setAdapter(adapter);
         mTabLayoutOverseas.setupWithViewPager(mViewpageOverseas);
-        mViewpageOverseas.setOffscreenPageLimit(2);
+        mViewpageOverseas.setOffscreenPageLimit(1);
     }
 }

@@ -1,18 +1,12 @@
 package com.happybaby.happybaby.adapter;
 
 
-import android.content.Context;
+
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.happybaby.happybaby.R;
-import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.LoopPagerAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,10 +14,10 @@ import java.util.List;
  * Created by Administrator on 2016/12/19.
  */
 
-public class TestLoopAdapter extends PagerAdapter {
-    private List<View> listViews;
+public class ProductADAdapter extends PagerAdapter {
+    private List<ImageView> listViews;
 
-    public TestLoopAdapter(List<View> listViews) {
+    public ProductADAdapter(List<ImageView> listViews) {
         this.listViews = listViews;
     }
 
@@ -45,7 +39,7 @@ public class TestLoopAdapter extends PagerAdapter {
     //创建视图
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view=listViews.get(position);
+        ImageView view=listViews.get(position);
         container.addView(view);
         return view;
     }
