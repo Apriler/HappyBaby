@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,32 +49,10 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private View headView;
     private ShoppingCartAdapter shoppingCartAdapter;
     private List<ShoppingCartBean> cartBeanList = null;
-    private boolean flag;
+    private boolean flag =true;
     private LinearLayout mLlEmpty;
-    private List<Boolean> tagList;
-//    @BindView(R.id.edit_tv)  //购物车编辑按钮
-//    Button shoppingCarEditor;
-//    @BindView(R.id.treasure_rv)
-//    ListView shoppingcarListView;  //RecyclerView列表
-//    @BindView(R.id.shop_toast_tv)
-//    TextView shoppingcarEmptyview;//空view
-////    @BindView(R.id.progressBar)
-////    ProgressBar progressBar;
-//    @BindView(R.id.total_amount)
-//    TextView total;
-//    @BindView(R.id.clearing_btn)
-//
-//    @BindView(R.id.command_layout)
-//    RelativeLayout footer;
-
-//    //private Context mContext= App.app;
-//    //private DaoSession daoSession=App.newInstance().getDaoSession();
-//    private ShoppingCartBeanDao cartBeanDao;
-
-//    private ShoppingCartAdapter shoppingCartAdapter;
-
-//    private boolean flag=true;
-//    private View headView;
+    private LinkedList<Boolean> tagList;
+    private LinkedList<Boolean> tagList1;
 
 
     @Override
@@ -122,27 +101,60 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                 if (isChecked == false) {
                     mTotalAmount.setText(" 0.00");
                     mClearingBtn.setText("去结算(0)");
+                    for (int i=0;i<cartBeanList.size();i++){
+                        tagList.set(i,false);
+                        count(cartBeanList,tagList);
+                        shoppingCartAdapter.notifyDataSetChanged();
+                    }
                 } else if (mEditTv.getText().equals("完成")) {
                     mTotalAmount.setText(String.format("%.2f", money));
                     mClearingBtn.setText("去结算(" + totalCount + ")");
                 } else {
+                    for (int i=0;i<cartBeanList.size();i++){
+                        tagList.set(i,true);
+                        count(cartBeanList,tagList);
+                        shoppingCartAdapter.notifyDataSetChanged();
+                    }
                     mTotalAmount.setText(String.format("%.2f", money));
                     mClearingBtn.setText("去结算(" + totalCount + ")");
                 }
 
-                for (int i=0;i<cartBeanList.size();i++){
-                    tagList.set(i,true);
-                    count(cartBeanList,tagList);
-                    shoppingCartAdapter.notifyDataSetChanged();
-                }
+
             }
         });
+        mCheckboxCommand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked == false) {
+                    mTotalAmount.setText(" 0.00");
+                    mClearingBtn.setText("去结算(0)");
+                    for (int i=0;i<cartBeanList.size();i++){
+                        tagList.set(i,false);
+                        count(cartBeanList,tagList);
+                        shoppingCartAdapter.notifyDataSetChanged();
+                    }
+                } else if (mEditTv.getText().equals("完成")) {
+                    mTotalAmount.setText(String.format("%.2f", money));
+                    mClearingBtn.setText("去结算(" + totalCount + ")");
+                } else {
+                    for (int i=0;i<cartBeanList.size();i++){
+                        tagList.set(i,true);
+                        count(cartBeanList,tagList);
+                        shoppingCartAdapter.notifyDataSetChanged();
+                    }
+                    mTotalAmount.setText(String.format("%.2f", money));
+                    mClearingBtn.setText("去结算(" + totalCount + ")");
+                }
 
+
+            }
+        });
         shoppingcarListView.addHeaderView(headView);
         mLlEmpty = (LinearLayout) rootView.findViewById(R.id.ll_empty);
         mLlEmpty.setOnClickListener(this);
         cartBeanList = new ArrayList<>();
-        tagList = new ArrayList<>();
+        tagList = new LinkedList<>();
+        tagList1 = new LinkedList<>();
     }
 
     private void initdata() {
@@ -181,13 +193,40 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.edit_tv:
                 editChange();
-
+                initdata();
                 break;
             case R.id.delete_btn:
 
                 break;
             case R.id.clearing_btn:
 
+                //判断当前是不是删除按钮
+                if ("删除".equals(mClearingBtn.getText()))
+                {
+
+                    for (int i=tagList.size()-1;i>=0;i--){
+                        if (tagList.get(i)){
+
+//                            tagList.set(i,tagList.get(++i));
+//                            tagList.remove(tagList.size()-1);
+                            BaseApplication.app.getManager().delete(BaseApplication.app.getManager().getShoppingCartBean(cartBeanList.get(i).getId()));
+                            tagList.remove(i);
+                            i=tagList.size()-1;
+                        }
+//                        else {
+//                            tagList1.add(tagList.get(i));
+//                        }
+
+                        cartBeanList.removeAll(cartBeanList);
+                        cartBeanList = BaseApplication.app.getManager().getAll();
+                    }
+
+                    shoppingCartAdapter=new ShoppingCartAdapter(getContext(), cartBeanList,tagList);
+                    shoppingcarListView.setAdapter(shoppingCartAdapter);
+
+                }else {
+
+                }
                 break;
         }
     }
@@ -200,7 +239,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private void editChange() {
         if (!flag) {
             mEditTv.setText("编辑");
-            mCheckhead.setChecked(true);
+            mCheckhead.setChecked(false);
             money = 0;
             totalCount = 0;
             mTotalAmount.setVisibility(View.VISIBLE);
@@ -209,7 +248,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
         } else {
             mEditTv.setText("完成");
-            mCheckhead.setChecked(false);
+            mCheckhead.setChecked(true);
             mTotalAmount.setVisibility(View.GONE);
             mClearingBtn.setText("删除");
         }
@@ -225,9 +264,12 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                 totalCount += cartBeanList.get(i).getNum();
             }
         }
-        mTotalAmount.setText(String.format("%.2f", money));
-        mClearingBtn.setText("去结算（" + totalCount + ")");
-
+        if(mEditTv.getText().equals("完成")){
+            mClearingBtn.setText("删除");
+        }else {
+            mTotalAmount.setText(String.format("%.2f", money));
+            mClearingBtn.setText("去结算（" + totalCount + ")");
+        }
     }
 
 

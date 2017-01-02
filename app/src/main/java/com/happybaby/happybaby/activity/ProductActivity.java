@@ -142,7 +142,7 @@ public class ProductActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void run() {
                         List<ImageView> imageViewList = new ArrayList<ImageView>();
-                        for (int i = 0; i < data.getProductImage().size() / 2; i++) {
+                        for (int i = 0; i < data.getProductImage().size() ; i++) {
                             ImageView imageView = new ImageView(ProductActivity.this);
                             Glide.with(ProductActivity.this).load(data.getProductImage().get(i).getImageUrl())
                                     .into(imageView);

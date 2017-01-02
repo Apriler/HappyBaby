@@ -19,5 +19,8 @@
         <!-- 指定消失的动画xml -->
     </style>
 
+    <style name="TransluncenTheme" parent="AppTheme">
+    </style>
+
 
 </resources>

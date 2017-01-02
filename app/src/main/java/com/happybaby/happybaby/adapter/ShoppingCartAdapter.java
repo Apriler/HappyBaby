@@ -18,6 +18,7 @@ import com.happybaby.happybaby.greendao.ShoppingCartBean;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,12 +30,12 @@ public class ShoppingCartAdapter extends BaseAdapter{
     private List<ShoppingCartBean> list;
     private LayoutInflater inflater;
     private AddDescListener addDescListener;
-    private List<Boolean> tagList;
+    private LinkedList<Boolean> tagList;
     public void setAddDescListener(AddDescListener addDescListener) {
         this.addDescListener = addDescListener;
     }
 
-    public ShoppingCartAdapter(Context context, List<ShoppingCartBean> list,List<Boolean> tagList) {
+    public ShoppingCartAdapter(Context context, List<ShoppingCartBean> list,LinkedList<Boolean> tagList) {
         this.tagList = tagList;
         this.context = context;
         this.list = list;
@@ -72,8 +73,12 @@ public class ShoppingCartAdapter extends BaseAdapter{
         myShopHolder.mCheckboxItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 boolean b = !tagList.get(i);
                 tagList.set(i,b);
+                if (addDescListener==null){
+                    return;
+                }
                 addDescListener.Tag(tagList);
                 ShoppingCartAdapter.this.notifyDataSetChanged();
             }
@@ -92,6 +97,9 @@ public class ShoppingCartAdapter extends BaseAdapter{
                 }else {
                     Toast.makeText(context,"最小购买量为 1",Toast.LENGTH_SHORT).show();
                 }
+                if (addDescListener==null){
+                    return;
+                }
                 addDescListener.Add(num);
                 ShoppingCartAdapter.this.notifyDataSetChanged();
             }
@@ -107,6 +115,9 @@ public class ShoppingCartAdapter extends BaseAdapter{
                     BaseApplication.app.getManager().update(shoppingCartBean1);
                 }else {
                     Toast.makeText(context,"最大购买量为 6",Toast.LENGTH_SHORT).show();
+                }
+                if (addDescListener==null){
+                    return;
                 }
                 addDescListener.Add(num1);
             ShoppingCartAdapter.this.notifyDataSetChanged();

@@ -20,6 +20,7 @@ import com.happybaby.happybaby.activity.BaseApplication;
 import com.happybaby.happybaby.activity.ChangeUserNameActivity;
 import com.happybaby.happybaby.activity.LoginActivity;
 import com.happybaby.happybaby.activity.RegisterActivity;
+import com.happybaby.happybaby.activity.SettingActivity;
 import com.happybaby.happybaby.bean.User;
 import com.happybaby.happybaby.inter.ProgressBarInter;
 
@@ -37,7 +38,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends Fragment implements View.OnClickListener, ProgressBarInter {
+public class MineFragment extends Fragment implements View.OnClickListener {
 
 
     //    @BindView(R.id.ivSetting)
@@ -60,6 +61,7 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
     private ImageView mIvPhoto;//头像
     private PtrFrameLayout mPtrframelayoutMine;
     private User user;
+    private ImageView mIvSetting;
 
 
     @Override
@@ -80,9 +82,9 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
                 frame.post(new Runnable() {
                     @Override
                     public void run() {
-                        StartProgressBar();
+//                        StartProgressBar();
                         user = BaseApplication.getUser();
-                        StopProgressBar();
+//                        StopProgressBar();
                     }
                 });
             }
@@ -92,9 +94,9 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
 
     @Override
     public void onResume() {
-        Log.e("Tag","onResume+++++++++++++++");
+        Log.e("Tag", "onResume+++++++++++++++");
         super.onResume();
-        StartProgressBar();
+//        StartProgressBar();
         if (flag) {
             user = User.getCurrentUser(User.class);
             mLlMine.setVisibility(View.INVISIBLE);//登陆成功，显示个人头像
@@ -109,7 +111,7 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
             if (user.getQianming() != null) {
                 //获取签名，设置上
                 mTvUserText.setText(user.getQianming());
-            }else {
+            } else {
                 mTvUserText.setText("还没有写签名噢~~");
             }
 
@@ -118,7 +120,7 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
             mLlMine.setVisibility(View.VISIBLE);//登陆不成功
             mLlMineIslogin.setVisibility(View.INVISIBLE);
         }
-        StopProgressBar();
+//        StopProgressBar();
     }
 
     private void initView(View view) {
@@ -135,20 +137,26 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
         mTvUserName.setOnClickListener(this);
         mTvUserText = (TextView) view.findViewById(R.id.tv_user_text);
         mTvUserText.setOnClickListener(this);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+//        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
 
         mIvPhoto = (ImageView) view.findViewById(R.id.iv_photo);
         mIvPhoto.setOnClickListener(this);
         mPtrframelayoutMine = (PtrFrameLayout) view.findViewById(R.id.ptrframelayout_mine);
         mPtrframelayoutMine.setOnClickListener(this);
+        mIvSetting = (ImageView) view.findViewById(R.id.iv_Setting);
+        mIvSetting.setOnClickListener(this);
     }
+
 
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.iv_Setting://跳转到登录
+                intent.setClass(getActivity(), SettingActivity.class);
+                break;
             case R.id.person_tv_login://跳转到登录
                 intent.setClass(getActivity(), LoginActivity.class);
                 break;
@@ -165,15 +173,15 @@ public class MineFragment extends Fragment implements View.OnClickListener, Prog
         startActivity(intent);
     }
 
-    @Override
-    public void StartProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void StopProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }
+//    @Override
+//    public void StartProgressBar() {
+//        mProgressBar.setVisibility(View.VISIBLE);
+//    }
+//
+//    @Override
+//    public void StopProgressBar() {
+//        mProgressBar.setVisibility(View.GONE);
+//    }
 
 //
 //    @OnClick({R.id.ivSetting, R.id.iv_message_lay, R.id.person_tv_login,R.id.person_tv_register})

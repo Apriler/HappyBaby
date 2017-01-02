@@ -57,10 +57,10 @@ public class WebviewActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mWebview.canGoBack()) {
-                mWebview.goBack();
+            //if (mWebview.canGoBack()) {
+            //    mWebview.goBack();
                 finish();
-            }
+            //}
         }
         return true;
     }
