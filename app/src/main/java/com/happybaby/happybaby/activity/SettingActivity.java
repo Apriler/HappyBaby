@@ -15,6 +15,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private ImageView mImageviewBack;
     private Button mBtnBacklogin;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -28,6 +28,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private ImageView mImageviewBack;
 //    private Context mContext = App.app;
 
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
