@@ -180,7 +180,7 @@
                     android:orientation="vertical">
                     <include layout="@layout/item_index_black_text"
                         android:id="@+id/include1"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"/>
                     <include layout="@layout/item_index_black_text"

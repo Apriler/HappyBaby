@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorWhite">
+
+
+    <RelativeLayout
+        android:id="@+id/treasure_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+
+
+        <ImageView
+            android:id="@+id/iv_search_treasure"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/test_picture"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_serach_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:text="45465465454564564564564444454564545645646545645645645645645454564654564564546545645454544444444545545454"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/iv_search_treasure"
+            android:layout_alignTop="@id/iv_search_treasure" />
+        <TextView
+            android:id="@+id/tv_serach_jieshao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:layout_marginRight="10dp"
+            android:text="45465465454564564564546545645454544444444545545454"
+            android:layout_alignLeft="@id/tv_serach_details"
+            android:layout_below="@id/tv_serach_details"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_price_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textSize="17sp"
+            android:textColor="@color/colorAccent"
+            android:layout_alignLeft="@id/tv_serach_jieshao"
+            android:layout_below="@id/tv_serach_jieshao"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/tv_search_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00.00"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_serach_jieshao"
+            android:textColor="@color/colorAccent"
+            android:layout_alignLeft="@id/tv_serach_jieshao"
+            android:layout_below="@id/tv_serach_jieshao"
+            android:layout_marginTop="20dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorLinkGray"
+            android:layout_alignLeft="@id/iv_search_treasure"
+            android:layout_marginTop="150dp"/>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

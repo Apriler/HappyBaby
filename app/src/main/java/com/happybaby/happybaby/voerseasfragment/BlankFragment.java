@@ -1,6 +1,7 @@
 package com.happybaby.happybaby.voerseasfragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.happybaby.happybaby.R;
+import com.happybaby.happybaby.activity.ProductActivity;
 import com.happybaby.happybaby.adapter.CategoryAdapter;
 import com.happybaby.happybaby.adapter.GoodsAdapter;
 import com.happybaby.happybaby.adapter.HotEventAdapter;
@@ -327,7 +329,10 @@ public class BlankFragment extends BaseFragment {
             public void itemClick(View itemView, int position) {
 
                 showToast("猜你喜欢" + position);
-
+                Intent intent=new Intent();
+                intent.putExtra("ID",dateMayLikeList.get(position).getProduct_id());
+                intent.setClass(getActivity(), ProductActivity.class);
+                startActivity(intent);
             }
         });
 

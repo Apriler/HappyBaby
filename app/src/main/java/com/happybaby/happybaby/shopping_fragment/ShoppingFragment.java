@@ -49,7 +49,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private View headView;
     private ShoppingCartAdapter shoppingCartAdapter;
     private List<ShoppingCartBean> cartBeanList = null;
-    private boolean flag =true;
+    private boolean flag ;
     private LinearLayout mLlEmpty;
     private LinkedList<Boolean> tagList;
     private LinkedList<Boolean> tagList1;
