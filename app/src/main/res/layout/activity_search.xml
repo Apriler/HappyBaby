@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.happybaby.happybaby.search.SearchActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+        <ImageView
+            android:id="@+id/btn_title_searchpage"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:padding="12.0dip"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/new_title_back_icon_black" />
+
+
+        <Button
+            android:id="@+id/btn_jump_page"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/search_btn"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="12.0dip"
+            android:scaleType="centerCrop" />
+
+
+        <EditText
+            android:id="@+id/edt_message"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/btn_title_searchpage"
+            android:layout_toLeftOf="@id/btn_jump_page"/>
+
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

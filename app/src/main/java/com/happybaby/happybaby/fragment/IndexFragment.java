@@ -1,6 +1,7 @@
 package com.happybaby.happybaby.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,6 +26,8 @@ import com.happybaby.happybaby.contant.IndexUrlContants;
 import com.happybaby.happybaby.index_fragment.Index_SecondFragment;
 import com.happybaby.happybaby.index_fragment.Index_ThirdFragment;
 import com.happybaby.happybaby.index_fragment.Index_firstFragment;
+import com.happybaby.happybaby.search.HotSearchBean;
+import com.happybaby.happybaby.search.SearchActivity;
 import com.happybaby.happybaby.util.OkHttpUtils;
 
 import java.io.IOException;
@@ -47,6 +51,7 @@ public class IndexFragment extends Fragment {
     private List<String> Strlist;//标题的集合
     List<Fragment> fraglist;//fragment的集合
     private ContentAdapter adapter;
+    private TextView tvToast;  //搜索提示文言
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,9 +80,6 @@ public class IndexFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {//成功
-
-
-
                 String string = response.body().string();//返回json
                 if (!TextUtils.isEmpty(string)) {
                     Gson gson = new Gson();
@@ -100,20 +102,51 @@ public class IndexFragment extends Fragment {
 
                     }
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter = new ContentAdapter(getChildFragmentManager(), fraglist, Strlist);
+
+
                             Log.e("Tag", "2222222222222222222222222");
                             //创建适配器实例
-                            mVpFrag.setAdapter(adapter);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter = new ContentAdapter(getChildFragmentManager(), fraglist, Strlist);
+                                    mVpFrag.setAdapter(adapter);
+                                }
+                            });
+
 //                            //加载Fragment的个数
 //                            mVpFrag.setOffscreenPageLimit(title.getData().size()/2);
-                        }
-                    });
+
                 }
             }
         });
+        //设定搜索提示文言
+        okHttpUtils.doAsyncGETRequest(IndexUrlContants.HOT_SEARCH_URL+"getWord", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                if (!TextUtils.isEmpty(s)) {
+                    Gson gson = new Gson();
+                    HotSearchBean hotSearchBean = gson.fromJson(s, HotSearchBean.class);
+                    final String key_word = hotSearchBean.getData().getIndexWord().getKey_word();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvToast.setText(key_word);
+                        }
+                    });
+
+                }
+            }
+        });
+
+
+
     }
 
     private void initView(View view) {
@@ -124,6 +157,18 @@ public class IndexFragment extends Fragment {
         Strlist = new ArrayList<>();
         fraglist = new ArrayList<>();
         mTablayout.setupWithViewPager(mVpFrag);
+        tvToast= (TextView) view.findViewById(R.id.tv_toast);
+        //点击跳转画面监听
+        mViewHomepage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent();
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
 }

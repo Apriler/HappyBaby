@@ -21,12 +21,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         initView();
-        if( MineFragment.flag){
-            mBtnBacklogin.setVisibility(View.VISIBLE);
-        }
-        else {
-            mBtnBacklogin.setVisibility(View.GONE);
-        }
+
     }
 
     private void initView() {
@@ -35,6 +30,17 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         mImageviewBack.setOnClickListener(this);
         mBtnBacklogin.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(MineFragment.flag){
+            mBtnBacklogin.setVisibility(View.VISIBLE);
+        }
+        else {
+            mBtnBacklogin.setVisibility(View.GONE);
+        }
     }
 
     @Override
